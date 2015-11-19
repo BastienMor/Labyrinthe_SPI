@@ -1,5 +1,13 @@
 #Laby SPI
 ##La boucle principale :
+Initialisation : 
+* Laby_gen
+* Monstre_gen
+* joueur_init
+
 Boucle du jeux :
-* Le joueur agit.
-* le/les monstres si il y en a.
+
+* joueur_agir (L # L/E # L/E)
+** Test
+* monstres_agir (L # L/E # L/E)
+

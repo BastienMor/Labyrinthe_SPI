@@ -8,7 +8,8 @@ Initialisation :
 Boucle du jeux :
 
 * joueur_agir (L # L/E # L/E)
-- ff
--bgghg
+* --Sortie si (condition de fin)
 * monstres_agir (L # L/E # L/E)
+* --Sortie si (condition de fin)
+
 

@@ -1,3 +1,4 @@
 #Laby SPI
 ##La boucle principale :
-*Test. 
+* Le joueur agit puis le/les monstres si il y en a.
+*  

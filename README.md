@@ -1,5 +1,5 @@
 #Laby SPI
-##La boucle principale :
+##La boucle principale
 
 `Jeu_Initialiser(##Labyrinthe, Joueur_Objet, Monstre_Objet_Liste);`
 

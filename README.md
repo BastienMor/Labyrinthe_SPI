@@ -8,6 +8,7 @@ Initialisation :
 Boucle du jeux :
 
 * joueur_agir (L # L/E # L/E)
-** Test
+- ff
+-bgghg
 * monstres_agir (L # L/E # L/E)
 

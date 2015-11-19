@@ -1,15 +1,18 @@
 #Laby SPI
 ##La boucle principale :
-Initialisation : 
-* Laby_gen
-* Monstre_gen
-* joueur_init
 
-Boucle du jeux :
+`Jeu_Initialiser(##Labyrinthe, Joueur_Objet, Monstre_Objet_Liste);`
 
-* joueur_agir (L # L/E # L/E)
-* --Sortie si (condition de fin)
-* monstres_agir (L # L/E # L/E)
-* --Sortie si (condition de fin)
+##Boucle du jeu
+```
+while(!bPartie_finie(Joueur_Objet)){
+  Joueur_Agir(#Labyrinthe, Joueur_Objet, Monstre_Objet_Liste);
+  Ecran_Afficher(Labyrinthe);
 
-
+  if(bMonstre_Present(Monstre_Objet_Liste) && !bPartie_finie(Joueur_Objet)){
+    Monstre_Agir(#Labyrinthe, Joueur_Objet, Monstre_Objet_Liste#);
+    Ecran_Afficher(Labyrinthe);
+  }
+}
+Gameover_Afficher();
+```

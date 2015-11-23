@@ -2,18 +2,92 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define N 5
+#define N 50
 
 
 //typedef enum{};
 
 typedef struct {int etat; int contenue[10];}t_inventaire;
 
-typedef struct {int id; int hp; t_inventaire inventaire;}entity;
+typedef struct {int id; int hp; t_inventaire inventaire;int x; int y; int orientation;}entity;
 
-typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
+typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; int entite;}t_salle;
 
 t_salle labyrinthe[N][N];
+entity joueur;
+entity tab[10];
+
+
+//trouver les x et y du joueur
+void joueurpos(int * x, int * y)
+{
+	x = joueur.entity.x;
+	y = joueur.entity.y;
+}
+
+//génération d'une grille
+void Labyrinthe_initialiser()
+{
+
+}
+
+void Labyrinthe_amorcer()
+{
+	Labyrinthe_initialiser();
+}
+
+//retourne ou l'on peut se déplacé
+void Labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
+{
+	int joueurx, joueury;
+	joueurpos(joueurx, joueury);
+	
+	*nord = 1;
+	*est = 1;
+	*sud = 1;
+	*ouest = 1;
+	
+	if(Labyrinthe[joueurx][joueury].haut == 1)
+	{
+		*nord = 0;
+	}
+	if(Labyrinthe[joueurx][joueury].droite == 1)
+	{
+		*est = 0;
+	}
+	if(Labyrinthe[joueurx][joueury].bas == 1)
+	{
+		*sud = 0;
+	}
+	if(Labyrinthe[joueurx][joueury].gauche == 1)
+	{
+		*ouset = 0;
+	}
+}
+
+//info sur la salle
+void Labyrinthe_examiner(int x, int y, t_inventaire )
+{
+	Labyrinthe[x][y].objets;
+	
+}
+
+//info sur les entité alentours
+void Labyrinthe_presencer()
+
+//deplace une entité
+void Labyrinthe_deplacer()
+
+//affiche le labyrinthe
+void Labyrinthe_afficher()
+
+//creation d'une salle
+void Labyrinthe_saller()
+{
+	
+}
+
+
 
 
 

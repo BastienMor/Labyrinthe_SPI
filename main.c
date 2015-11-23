@@ -4,9 +4,21 @@
 #define N 5
 //typedef enum{};
 typedef struct {int etat; int contenue[10];}t_inventaire;
+<<<<<<< HEAD
 typedef struct {int id; int hp; t_inventaire inventaire;}entity;
 typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
 t_salle labyrinthe[N][N];
+=======
+
+typedef struct {int id; int hp; t_inventaire inventaire;}entity;
+
+typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
+
+t_salle labyrinthe[N][N];
+
+
+
+>>>>>>> 18714c622632ba8c66629be1aee453713f302491
 void init_couloir ()
 {
 int i, j;

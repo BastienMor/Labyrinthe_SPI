@@ -9,11 +9,13 @@
 
 typedef struct {int etat; int contenue[10];}t_inventaire;
 
+typedef struct {int id; int hp; t_inventaire inventaire;}entity;
 
-typedef struct{int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
-
+typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
 
 t_salle labyrinthe[N][N];
+
+
 
 void init_couloir ()
 {

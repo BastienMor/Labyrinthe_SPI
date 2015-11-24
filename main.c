@@ -7,9 +7,9 @@
 
 //typedef enum{};
 
-typedef struct {int etat; int contenue[10];}t_inventaire;
+typedef struct inventaire{int etat; int contenue[10]; inventaire locker[10]}t_inventaire;
 
-typedef struct {int id; int hp; t_inventaire inventaire;int x; int y; int orientation;}entity;
+typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
 
 typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; int entite;}t_salle;
 
@@ -65,19 +65,30 @@ void Labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
 	}
 }
 
-//info sur la salle
-void Labyrinthe_examiner(int x, int y, t_inventaire )
+//info sur une salle
+//[-1;-1] en paramettre prendra les infos sur la case du joueur.
+void Labyrinthe_examiner(int x, int y, t_inventaire * quoi)
 {
-	Labyrinthe[x][y].objets;
+	*quoi = Labyrinthe[x][y].objets;
+	if (x == -1 && y == -1)
+	{
+		joueurpos(&x, &y);
+		*quoi = Labyrinthe[x][y].objets;
+	}
+}
+
+//info sur les entité alentours d'une entité
+//[-1;-1] prendra le x et y du joueur.
+void Labyrinthe_presencer(int x, int y; )
+{
 	
 }
 
-//info sur les entité alentours
-void Labyrinthe_presencer()
-
 //deplace une entité
-void Labyrinthe_deplacer()
-
+void Labyrinthe_deplacer(entity qui)
+{
+	
+}
 //affiche le labyrinthe
 void Labyrinthe_afficher()
 

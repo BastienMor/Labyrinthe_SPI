@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-<<<<<<< HEAD
 
 #define N 50
 
@@ -9,10 +8,6 @@
 //typedef enum{};
 
 typedef struct inventaire{int etat; int contenue[10]; inventaire locker[10]}t_inventaire;
-=======
-#define N 5
-//typedef enum{};
-typedef struct {int etat; int contenue[10];}t_inventaire;
 
 typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
 

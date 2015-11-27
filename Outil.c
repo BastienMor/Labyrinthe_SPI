@@ -555,7 +555,8 @@ int bDecit(char cCaractere){
 }//bDecit
 
 void Dis(char *sString){//affiche la valeur de la chaîne;comme s()
-	s(sString);
+    if(1)
+        s(sString);
 }//Dis
 
 char *sE(int nEspace){

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "Outil.h"
+//#include "Outil.h"
 
-#define N 50
+#define N 5
 
 
 //typedef enum{};
@@ -102,7 +102,7 @@ void labyrinthe_presencer(int x, int y, entity * nord, entity * est, entity * su
 		*est = labyrinthe[x][y-1].entite;
 	}
 }
-
+/*
 //deplace une entité (orientation = [1; 2; 3; 4])
 void labyrinthe_deplacer(entity qui, int orientation)
 {
@@ -137,13 +137,70 @@ void labyrinthe_deplacer(entity qui, int orientation)
 		labyrinthe[qui.x+depx][qui.y+depy].entite = qui;
 		labyrinthe[x][y].entite.id = 0;
 	}
-}
+}*/
 
 //affiche le labyrinthe
 void labyrinthe_afficher()
 {
+	int i;
+	int j = 0;
 	
+	printf("╔");
+	for(j=0; j<N-1; j++)
+	{
+		printf("═╦");
+	}
+	printf("═╗\n");
+	
+	
+	
+	for (i=0; i<N-1; i++)
+	{
+		printf("║");
+		for(j=0; j<N-1; j++)
+		{
+			if(labyrinthe[i][j].droite == 1)
+			{
+				printf(" ║");
+			}
+			else
+			{
+				printf("  ");
+			}
+			printf(" ║\n");
+
+
+			printf("╠");
+			for(j=0; j<N-1; j++)
+			{
+				printf("═╬");
+			}
+			printf("═╣\n");
+		}
+	}
+		
+	
+	
+	
+	if(labyrinthe[i][j].droite == 1)
+	{
+		printf(" ║");
+	}
+	else
+	{
+		printf("  ");
+	}
+	printf(" ║\n");
+	
+	
+	printf("╚");
+	for(i=0; i<N-1; i++)
+	{
+		printf("═╩");
+	}
+	printf("═╝\n");
 }
+
 
 //creation d'une salle
 void labyrinthe_saller()
@@ -155,39 +212,42 @@ void labyrinthe_saller()
 
 
 
-/*
-
 void init_couloir ()
 {
-int i, j;
-for (i=0; i<N; i++)
-{
-for (j=0; j<N; j++)
-{
-labyrinthe[i][j].etat = 1;
-labyrinthe[i][j].droite = 0;
-labyrinthe[i][j].gauche = 0;
-labyrinthe[i][j].haut = 0;
-labyrinthe[i][j].bas = 0;
-if (j == 2)
-{
-labyrinthe[i][j].etat = 0;
-labyrinthe[i][j].droite = 1;
-labyrinthe[i][j].gauche = 1;
-labyrinthe[i][j].haut = 0;
-labyrinthe[i][j].bas = 0;
-if (i == 0)
-{
-labyrinthe[i][j].haut = 1;
+	int i, j;
+	for (i=0; i<N; i++)
+	{
+		for (j=0; j<N; j++)
+		{
+			labyrinthe[i][j].etat = 1;
+			labyrinthe[i][j].droite = 1;
+			labyrinthe[i][j].gauche = 1;
+			labyrinthe[i][j].haut = 1;
+			labyrinthe[i][j].bas = 1;
+			if (j == 2)
+			{
+				labyrinthe[i][j].etat = 0;	
+				labyrinthe[i][j].haut = 0;
+				labyrinthe[i][j].bas = 0;
+				if (i == 0)
+				{
+					labyrinthe[i][j].haut = 1;
+				}
+				if (i == 4)
+				{
+					labyrinthe[i][j].bas = 1;
+				}
+			}
+		}
+	}
 }
-if (i == 4)
-{
-labyrinthe[i][j].bas = 1;
-}
-}
-}
-}
-}
+
+
+
+
+
+
+/*
 void ligne_print(int i, int j)
 {
 if (labyrinthe[i][j].gauche == 0)
@@ -341,6 +401,9 @@ int main() {
 
 
 int main() {
+
+	init_couloir();
+	labyrinthe_afficher();
 
 	/*Jeux_Initialiser(##labyrinthe, Joueur_Objet, Monstre_Objet_Liste);
 

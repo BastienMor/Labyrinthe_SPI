@@ -11,7 +11,7 @@ typedef struct inventaire{int etat; int contenue[10]; inventaire locker[10]}t_in
 
 typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
 
-typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; int entite;}t_salle;
+typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
 
 t_salle labyrinthe[N][N];
 entity joueur;
@@ -21,8 +21,8 @@ entity tab[10];
 //trouver les x et y du joueur
 void joueurpos(int * x, int * y)
 {
-	x = joueur.entity.x;
-	y = joueur.entity.y;
+	*x = joueur.entity.x;
+	*y = joueur.entity.y;
 }
 
 //génération d'une grille
@@ -38,28 +38,28 @@ void Labyrinthe_amorcer()
 
 //retourne ou l'on peut se déplacé
 void Labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
-{
-	int joueurx, joueury;
-	joueurpos(joueurx, joueury);
+{//maj ds Labyrinthe[x][y] les dirctions valides si XY est la place du joueur
+	int x, y;
+	joueurpos(&x, &y);
 	
 	*nord = 1;
 	*est = 1;
 	*sud = 1;
 	*ouest = 1;
 	
-	if(Labyrinthe[joueurx][joueury].haut == 1)
+	if(Labyrinthe[x][y].haut == 1)
 	{
 		*nord = 0;
 	}
-	if(Labyrinthe[joueurx][joueury].droite == 1)
+	if(Labyrinthe[x][y].droite == 1)
 	{
 		*est = 0;
 	}
-	if(Labyrinthe[joueurx][joueury].bas == 1)
+	if(Labyrinthe[x][y].bas == 1)
 	{
 		*sud = 0;
 	}
-	if(Labyrinthe[joueurx][joueury].gauche == 1)
+	if(Labyrinthe[x][y].gauche == 1)
 	{
 		*ouset = 0;
 	}
@@ -69,23 +69,38 @@ void Labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
 //[-1;-1] en paramettre prendra les infos sur la case du joueur.
 void Labyrinthe_examiner(int x, int y, t_inventaire * quoi)
 {
-	*quoi = Labyrinthe[x][y].objets;
 	if (x == -1 && y == -1)
 	{
 		joueurpos(&x, &y);
 		*quoi = Labyrinthe[x][y].objets;
 	}
+	else
+	{
+		*quoi = Labyrinthe[x][y].objets;
+	}
 }
+
 
 //info sur les entité alentours d'une entité
 //[-1;-1] prendra le x et y du joueur.
-void Labyrinthe_presencer(int x, int y; )
+void Labyrinthe_presencer(int x, int y, entity * nord, entity * est, entity * sud, entity * ouest)
 {
-	
+	if (x == -1 && y == -1)
+	{
+		joueurpos(&x, &y);
+		Labyrinthe[x-1][y].entite.id;
+		Labyrinthe[x-1][y].entite.id;
+		Labyrinthe[x-1][y].entite.id;
+		Labyrinthe[x-1][y].entite.id;
+	}
+	else
+	{
+		
+	}
 }
 
 //deplace une entité
-void Labyrinthe_deplacer(entity qui)
+void Labyrinthe_deplacer(entity qui, int orientation)
 {
 	
 }
@@ -102,7 +117,8 @@ void Labyrinthe_saller()
 
 
 
->>>>>>> 18714c622632ba8c66629be1aee453713f302491
+/*
+
 void init_couloir ()
 {
 int i, j;
@@ -144,7 +160,7 @@ else
 {
 printf("|");
 }
-if (labyrinthe[i][j].entite == 1)
+if (labyrinthe[i][j].entite.id == 1)
 {
 printf("▣");
 }
@@ -197,98 +213,111 @@ else if (labyrinthe[i][j-1].bas == 1 && labyrinthe[i][j].haut == 1)
 printf("=");
 }
 }
-}
+
+
+
+
+
+
 void affichage()
 {
-int i = 0;
-int j;
-/*printf(" ");
-for (j=0; j<N; j++)
-{
-mur_print(i, j);
-printf(" ");
+	int i = 0;
+	int j;
+	printf(" ");
+	for (j=0; j<N; j++)
+	{
+		mur_print(i, j);
+		printf(" ");
+	}
+	printf("\n");
+
+	for (i=0; i<N; i++)
+	{
+		for (j=0; j<N; j++)
+		{
+			ligne_print(i, j);
+		}
+		printf("\n ");
+		for (j=0; j<N; j++)
+		{
+			mur_print(i, j);
+			printf(" ");
+		}
+		printf("\n");
+	}
 }
-printf("\n");
-*/
-for (i=0; i<N; i++)
-{
-for (j=0; j<N; j++)
-{
-ligne_print(i, j);
-}
-printf("\n ");
-for (j=0; j<N; j++)
-{
-mur_print(i, j);
-printf(" ");
-}
-printf("\n");
-}
-}
+
 int deplace (int *x, int *y, char dep)
 {
-if (dep == 'z' && labyrinthe[*x-1][*y].etat == 0)
-{
-labyrinthe[*x-1][*y].entite = 1;
-labyrinthe[*x][*y].entite = 0;
-return 0;
+	if (dep == 'z' && labyrinthe[*x-1][*y].etat == 0)
+	{
+		labyrinthe[*x-1][*y].entite.id = 1;
+		labyrinthe[*x][*y].entite.id = 0;
+		return 0;
+	}
+	else if (dep == 'q'&& labyrinthe[*x][*y-1].etat == 0)
+	{
+		labyrinthe[*x][*y-1].entite.id = 1;
+		labyrinthe[*x][*y].entite.id = 0;
+		return 0;
+	}
+	else if (dep == 's'&& labyrinthe[*x][*y+1].etat == 0)
+	{
+		labyrinthe[*x][*y+1].entite.id = 1;
+		labyrinthe[*x][*y].entite.id = 0;
+		return 0;
+	}
+	else if (dep == 'd'&& labyrinthe[*x+1][*y].etat == 0)
+	{
+		labyrinthe[*x+1][*y].entite.id = 1;
+		labyrinthe[*x][*y].entite.id = 0;
+		return 0;
+	}
+	return 1;
 }
-else if (dep == 'q'&& labyrinthe[*x][*y-1].etat == 0)
-{
-labyrinthe[*x][*y-1].entite = 1;
-labyrinthe[*x][*y].entite = 0;
-return 0;
-}
-else if (dep == 's'&& labyrinthe[*x][*y+1].etat == 0)
-{
-labyrinthe[*x][*y+1].entite = 1;
-labyrinthe[*x][*y].entite = 0;
-return 0;
-}
-else if (dep == 'd'&& labyrinthe[*x+1][*y].etat == 0)
-{
-labyrinthe[*x+1][*y].entite = 1;
-labyrinthe[*x][*y].entite = 0;
-return 0;
-}
-return 1;
-}
+
 int main() {
-char input;
-int x = 4;
-int y = 2;
-int a = 1;
-init_couloir();
-labyrinthe[x][y].entite = 1;
-affichage();
-scanf("%c", &input);
-while (input != 'q')
-{
-a = 1;
-while(a != 0)
-{
-scanf("%c", &input);
-a = deplace(&x, &y, input);
-}
-system ("clear");
-affichage();
-}
-return 0;
-}
-/*
-int main() {
-Jeux_Initialiser(##Labyrinthe, Joueur_Objet, Monstre_Objet_Liste);
-while (!bPartie_finie(Joueur_Objet))
-{
-Joueur_Agir(#Labyrinthe, Joueur_Objet, Monstre_Objet_Liste#);
-Ecran_Afficher(Labyrinthe);
-if (bMonstre_Present(Monstre_Objet_Liste) && !bPartie_finie(Joueur_Objet))
-{
-Monstre_Agir(#Labyrinthe, Joueur_Objet, Monstre_Objet_Liste#);
-Ecran_Afficher(Labyrinthe);
-}
-}
-Gameover_Afficher();
-return 0;
+	char input;
+	int x = 4;
+	int y = 2;
+	int a = 1;
+	init_couloir();
+	labyrinthe[x][y].entite.id = 1;
+	affichage();
+	scanf("%c", &input);
+	while (input != 'q')
+	{
+		a = 1;
+		while(a != 0)
+		{
+			scanf("%c", &input);
+			a = deplace(&x, &y, input);
+		}
+		system ("clear");
+		affichage();
+	}
+	return 0;
 }
 */
+
+
+
+int main() {
+
+	Jeux_Initialiser(##Labyrinthe, Joueur_Objet, Monstre_Objet_Liste);
+
+	while (!bPartie_finie(Joueur_Objet))
+	{
+		Joueur_Agir(#Labyrinthe, Joueur_Objet, Monstre_Objet_Liste#);
+		Ecran_Afficher(Labyrinthe);
+		if (bMonstre_Present(Monstre_Objet_Liste) && !bPartie_finie(Joueur_Objet))
+		{
+			Monstre_Agir(#Labyrinthe, Joueur_Objet, Monstre_Objet_Liste#);
+			Ecran_Afficher(Labyrinthe);
+		}
+	}
+	Gameover_Afficher();
+	
+	return 0;
+}
+

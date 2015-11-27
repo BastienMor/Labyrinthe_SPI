@@ -24,16 +24,16 @@ Le jeu se déroule comme suit :
 
 * Structures de données  
 
-	`typedef struct inventaire{int etat; int contenue[10]; struct inventaire *locker[10];}t_inventaire;
-	typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
-	typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
-    t_salle labyrinthe[N][N];
-    entity joueur;
+	`typedef struct inventaire{int etat; int contenue[10]; struct inventaire *locker[10];}t_inventaire;  
+	typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;  
+	typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;  
+    t_salle labyrinthe[N][N];  
+    entity joueur;  
     entity tab[10];`
 
 * Labyrinthe (Junior)  
 
-	`void Labyrinthe_initialiser();`  
+	`void Labyrinthe_initialiser();    
 	void Labyrinthe_afficher();`
 
 * Labyrinthe (Bastien)  

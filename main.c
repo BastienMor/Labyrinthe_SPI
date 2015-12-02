@@ -8,7 +8,7 @@
 
 //typedef enum{};
 
-typedef struct inventaire{int etat; int contenue[10]; struct inventaire *locker[10];}t_inventaire;
+typedef struct inventaire{int etat; int contenue[50]; struct inventaire *locker[10];}t_inventaire;
 
 typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
 
@@ -65,6 +65,8 @@ void labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
 		*ouest = 0;
 	}
 }
+
+
 
 //info sur une salle
 //[-1;-1] en paramettre prendra les infos sur la case du joueur.
@@ -156,7 +158,8 @@ void labyrinthe_afficher()
 	
 	for (i=0; i<N-1; i++)
 	{
-		printf("║");
+		//printf("║");
+		printf(" ");
 		for(j=0; j<N-1; j++)
 		{
 			if(labyrinthe[i][j].droite == 1)
@@ -181,7 +184,7 @@ void labyrinthe_afficher()
 		
 	
 	
-	
+	printf(" ");
 	if(labyrinthe[i][j].droite == 1)
 	{
 		printf(" ║");
@@ -237,6 +240,36 @@ void init_couloir ()
 				{
 					labyrinthe[i][j].bas = 1;
 				}
+			}
+		}
+	}
+}
+
+void salle_conditionner()
+{
+
+	int i, j;
+	
+	for (i=0; i<N-1; i++)
+	{
+	
+		for(j=0; j<N-1; j++)
+		{
+			if (labyrinthe[i-1][j].bas == 1)
+			{
+				labyrinthe[i][j].haut = 1;
+			}
+			if (labyrinthe[i][j+1].gauche == 1)
+			{
+				labyrinthe[i][j].droite = 1;
+			}
+			if (labyrinthe[i+1][j].haut == 1)
+			{
+				labyrinthe[i][j].bas = 1;
+			}
+			if (labyrinthe[i][j-1].droite == 1)
+			{
+				labyrinthe[i][j].gauche = 1;
 			}
 		}
 	}
@@ -403,6 +436,7 @@ int main() {
 int main() {
 
 	init_couloir();
+	salle_conditionner();
 	labyrinthe_afficher();
 
 	/*Jeux_Initialiser(##labyrinthe, Joueur_Objet, Monstre_Objet_Liste);

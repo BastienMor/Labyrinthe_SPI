@@ -94,9 +94,10 @@ void Joueur_deplacer(entity joueur, t_salle labyrinthe[N][N]){
 		printf("Votre choix : ");
 		scanf("%c", &bouger);
 		switch(bouger){
-			case 'z':  break;
-			case 's':  break;
-			case 'd':  break;
+			case 'z': break;
+			case 'q': break; 
+			case 's': break;
+			case 'd': break;
 			case 0: break;
 			default: Dis("Déplacement impossible !\n");
 		}

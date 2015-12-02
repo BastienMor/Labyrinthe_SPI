@@ -46,7 +46,7 @@ Le jeu se déroule comme suit :
 	`void labyrinthe_afficher();` //affiche le labyrinthe  
 	`void labyrinthe_saller();` //création d'une salle  
 	
-* Joueur (Alizée)  
+* Joueur  
 //Fonctions d'initialisation  
 	`void Joueur_initialiser(entity joueur);` // Initialise les stats du joueur, peut être réutilisé plusieurs fois  
 	`void Joueur_amorcer();` // A utiliser seulement une fois (début de partie)  

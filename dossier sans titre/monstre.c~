@@ -37,7 +37,6 @@ void Monstre_deplacer(entity monstre){
 		if(rand_g==1 && nord==1){
 			printf("deplacement possible au nord\n");
 			deplacement = 1;
-			
 		}
 		if(rand_g==2 && est==1){
 			printf("deplacement possible a l'est\n");

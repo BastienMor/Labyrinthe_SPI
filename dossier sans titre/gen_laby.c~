@@ -202,12 +202,12 @@ int main(){
 	
 	placement_monstre(ligne, monstre);
 	
+	Monstre_deplacer(monstre);
+	
 	monstre.x = ligne;
 	monstre.y=0;
 	
 	Labyrinthe_afficher2(ligne);
-	
-	Monstre_deplacer(monstre);
 	
 	return 0;
 }

@@ -4,4 +4,4 @@ typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire o
 
 void Monstre_initialiser(entity monstre);
 void Monstre_deplacer(entity monstre);
-void monstrepos(int * x, int * y, entity monstre);
+void labyrinthe_orienter(int *nord, int *est, int *sud, int *ouest, entity monstre);

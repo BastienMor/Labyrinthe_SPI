@@ -23,12 +23,12 @@ void Monstre_deplacer(entity monstre){
 	int rand_g;
 	int deplacement = 0;
 	
-	nord=1;
-	est=0;
+	/*nord=1;
+	est=1;
 	sud=1;
-	ouest=0;
+	ouest=0;*/
 	
-	//labyrinthe_orienter(&nord, &est, &sud, &ouest, monstre);
+	labyrinthe_orienter(&nord, &est, &sud, &ouest, monstre);
 	
 	While(10); // Fait cette action pour 10 tours - Modification possible
 	do{
@@ -36,19 +36,30 @@ void Monstre_deplacer(entity monstre){
 	
 		if(rand_g==1 && nord==1){
 			printf("deplacement possible au nord\n");
+			if(est==1) printf("deplacement possible aussi a l'est\n");
+			if(ouest==1) printf("deplacement possible aussi a l'ouest\n");
+			if(sud==1) printf("deplacement possible aussi au sud\n");
 			deplacement = 1;
-			
 		}
 		if(rand_g==2 && est==1){
 			printf("deplacement possible a l'est\n");
+			if(nord==1) printf("deplacement possible aussi au nord\n");
+			if(ouest==1) printf("deplacement possible aussi a l'ouest\n");
+			if(sud==1) printf("deplacement possible aussi au sud\n");
 			deplacement = 1;
 		}
 		if(rand_g==3 && sud==1){
 			printf("deplacement possible au sud\n");
+			if(est==1) printf("deplacement possible aussi a l'est\n");
+			if(ouest==1) printf("deplacement possible aussi a l'ouest\n");
+			if(nord==1) printf("deplacement possible aussi au nord\n");
 			deplacement = 1;
 		}
 		if(rand_g==4 && ouest==1){
 			printf("deplacement possible a l'ouest\n");
+			if(nord==1) printf("deplacement possible aussi au nord\n");
+			if(est==1) printf("deplacement possible aussi a l'est\n");
+			if(sud==1) printf("deplacement possible aussi au sud\n");
 			deplacement = 1;
 		}
 	}while(bWhile(deplacement!=1)); /* Fait la boucle tant qu'il n'atteint pas les tours donnÃ©s. AprÃšs cela, sort du jeu 

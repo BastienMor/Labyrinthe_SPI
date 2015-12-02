@@ -6,8 +6,7 @@
 typedef struct {int etat; int contenu[10];}t_inventaire;
 typedef struct {int id; int hp; int x,y;t_inventaire inventaire;}entity;
 typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
-
-// Fonctions Joueur 
+ 
 void Monstre_deplacer(entity monstre,t_salle labyrinthe){
 	int nord, est, sud, ouest;
 	int direction = 4;
@@ -58,7 +57,7 @@ void Monstre_initialiser(entity monstre) // Initialise les stats du monstre, peu
 	printf("\nInit : id:%i hp:%i\n", monstre.id, monstre.hp);
 }
 
-void Joueur_agir(t_salle labyrinthe, entity joueur, entity monstre) { // Permet de faire agir le monstre pendant le tour 
+void Monstre_agir(t_salle labyrinthe, entity joueur, entity monstre) { // Permet de faire agir le monstre pendant le tour 
 	Dis("Cette fonction est encore en cours de construction. Veuillez patienter !");
 	/* Boucle tour du joueur
 	 Vérification de la présence d'objets au sol 

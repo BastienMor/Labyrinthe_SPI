@@ -3,13 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Outil.h"
+#include "rencontre_combat.h"
 #define N 5
 
 // Structures de données 
-typedef struct {int etat; int contenu[50];}t_inventaire;
-typedef struct {int id; int hp; t_inventaire inventaire;}entity;
 typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
-
 
 //Fonctions d'initialisation
 void Joueur_initialiser(entity joueur){ // Initialise les stats du joueur, peut être réutilisé plusieurs fois
@@ -17,6 +15,9 @@ void Joueur_initialiser(entity joueur){ // Initialise les stats du joueur, peut 
 	joueur.hp=100;
 	joueur.inventaire.etat=1;
 	joueur.inventaire.contenu[0]=5;
+	joueur.x=0;
+	joueur.y=0;
+	joueur.orientation=rand()*4-1;
 	printf("\nInitialisation : id:%i hp:%i\n", joueur.id, joueur.hp);
 }
 
@@ -36,75 +37,85 @@ int bPartie_finie(){ //Indique la fin de partie
 
 int bLabyrinthe_checker(t_salle labyrinthe[N][N]){ //Vérifie le contenu d'une case de la salle	
 	int cellule;
+	//monstre=1, objet=2, mur=3;
 	scanf("%i", &cellule);
 	if(cellule == 1)
 		return 1;
+	if(cellule == 2)
+		return 2;
+	if(cellule == 3)
+		return 3;
 	return 0;
 }
 
 int bObjet(t_salle labyrinthe){ //Indique la présence ou non d'un objet au sol 
-	if(bLabyrinthe_checker(labyrinthe[N][N])){
+	int x; int y;
+	joueurpos(&x, &y);
+	if(bLabyrinthe_checker(labyrinthe[x][y]) == 2){
 		return 1;
 	}
 	return 0;
 }
 
-int bMonstre(){ //Indique la présence ou non d'un monstre devant soi
+int bMonstre(t_salle labyrinthe[N][N]){ //Indique la présence ou non d'un monstre devant soi
 	entity monstre;
-	labyrinthe[N][N];
 	int x; int y;
 	joueurpos(&x, &y);
-	if(joueur)
+	if(bLabyrinthe_checker(labyrinthe[x-1][y]) ==1 || bLabyrinthe_checker(labyrinthe[x+1][y])==1 || bLabyrinthe_checker(labyrinthe[x][y-1])==1 || bLabyrinthe_checker(labyrinthe[x][y+1])==1)
 		return 1;
 	return 0;
 }
 
-int bMur(){ //Indique la présence ou non du mur dans les 4 directions
-}
-
-
-//Fonctions de modification
-void HP_modifier(entity joueur){ //Modification des points de vie du joueur
+int bMur(entity joueur, t_salle labyrinthe[N][N]){ //Indique la présence ou non du mur dans les 4 directions
+	int i, x, y;
+	joueurpos(&x, &y);
+	for(i=1; i<=4; i++){
+		joueur.orientation = i;
+		if(bLabyrinthe_checker(labyrinthe[x-1][y]) ==3 || bLabyrinthe_checker(labyrinthe[x+1][y])==3 || bLabyrinthe_checker(labyrinthe[x][y-1])==3 || bLabyrinthe_checker(labyrinthe[x][y+1])==3)
+			return 1;
+		return 0;	
+	}
 }
 
 
 // Fonctions Joueur 
 void Joueur_deplacer(entity joueur, t_salle labyrinthe[N][N]){
 	int nord, est, sud, ouest;
-	int var;
+	char bouger;
 	// Labyrinthe_orienter(&nord, &est, &sud, &ouest);
 
-	While(10); // Fait cette action pour 10 tours - Modification possible
 	do{
 		//Labyrinthe_orienter(&nord, &est, &sud, &ouest);
 		printf("\nDéplacement(s) disponible(s) :\n");
 		if(nord == 1)
-			printf(" 1 - Nord\n");
+			printf(" z - Avancer\n");
 		if(est == 1)
-			printf(" 2 - Est\n");
-		if(sud == 1)
-			printf(" 3 - Sud\n");
+			printf(" d - Tourner à droite\n");
+
 		if(ouest == 1)
-			printf(" 4 - Ouest\n");
+			printf(" q - Tourner à gauche\n");
+		printf("n");
 		printf("Votre choix : ");
-		switch(var){
-			case 'z': Labyrinthe_deplacer(labyrinthe, joueur); break; //Regarder la façon dont la fonction Labyrinthe_deplacer est construite
-			case 'q': Labyrinthe_deplacer(labyrinthe, joueur); break; //Changer la structure de cette fonction pour la manip du joueur
-			case 's': Labyrinthe_deplacer(labyrinthe, joueur); break;
-			case 'd': Labyrinthe_deplacer(labyrinthe, joueur); break;
+		scanf("%c", &bouger);
+		switch(bouger){
+			case 'z': break;
+			case 'q': break; 
+			case 's': break;
+			case 'd': break;
 			case 0: break;
 			default: Dis("Déplacement impossible !\n");
 		}
-	}while(bWhile(var!=0)); /* Fait la boucle tant qu'il n'atteint pas les tours donnés. Après cela, sort du jeu 
-			 Assertion failed: (zWhilE[ipWhilE]>=0), function bWhile, file Outil.c, line 1031. <- A modifier */
+	}while(bouger!=0);
 }
 
 void Joueur_combattre(entity joueur){ // Fait combattre le joueur contre un monstre
-	Dis("Cette fonction est encore en cours de construction. Veuillez patienter !");
+	entity monstre;	
+	Combattre(monstre, joueur);
 }
 
 void Joueur_agir(t_salle labyrinthe[N][N], entity joueur, entity monstre) { // Permet de faire agir le joueur pendant le tour 
-	Dis("Cette fonction est encore en cours de construction. Veuillez patienter !");
+	int tour=0;
+	
 	/* Boucle tour du joueur
 	 Vérification de la présence d'objets au sol 
 		 Si présence alors récupération de l'objet 
@@ -114,9 +125,9 @@ void Joueur_agir(t_salle labyrinthe[N][N], entity joueur, entity monstre) { // P
 	 Vérfication des murs présents ou absents autour de lui 
 		 Si absence du mur dans une direction alors possibilité de se déplacer 
 	   Fin du tour du joueur */
-	
 	   
 }
+
 void Joueur_tester(int var){ // Vérification des fonctions 
 	entity joueur;
 	entity monstre;
@@ -140,7 +151,7 @@ void Joueur_tester(int var){ // Vérification des fonctions
 			default: Dis("Ca passe pas !\n");
 		}
 	}while(var!=0);
-	Dis("C'est tellement dommage que l'on se quitte. A bientôt ! :)\n");
+	Dis(" A bientôt !\n");
 }
 
 

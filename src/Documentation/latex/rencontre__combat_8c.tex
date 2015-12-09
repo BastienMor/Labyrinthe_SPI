@@ -1,0 +1,96 @@
+\hypertarget{rencontre__combat_8c}{\section{Référence du fichier rencontre\-\_\-combat.\-c}
+\label{rencontre__combat_8c}\index{rencontre\-\_\-combat.\-c@{rencontre\-\_\-combat.\-c}}
+}
+
+
+Fichier contenant les fonctions Rencontre et Combattre.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}include/\-Outil.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}include/joueur.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structinventaire}{inventaire}
+\item 
+struct \hyperlink{structentity}{entity}
+\item 
+struct \hyperlink{structt__salle}{t\-\_\-salle}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{rencontre__combat_8c_a0240ac851181b84ac374872dc5434ee4}{\#define {\bfseries N}~50}\label{rencontre__combat_8c_a0240ac851181b84ac374872dc5434ee4}
+
+\end{DoxyCompactItemize}
+\subsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{rencontre__combat_8c_addd4abe4f967d717cde44074ddbbd93b}{typedef struct \hyperlink{structinventaire}{inventaire} {\bfseries t\-\_\-inventaire}}\label{rencontre__combat_8c_addd4abe4f967d717cde44074ddbbd93b}
+
+\end{DoxyCompactItemize}
+\subsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{rencontre__combat_8c_a152676cd012a7bb6f2527713667610c5}{Rencontre} (\hyperlink{structentity}{entity} monstre, \hyperlink{structentity}{entity} joueur)
+\begin{DoxyCompactList}\small\item\em Indique si le joueur et le monstre sont positionnés côte à côte. \end{DoxyCompactList}\item 
+void \hyperlink{rencontre__combat_8c_af5815bb0d5ee0664ee549dfdae20895e}{Combattre} (\hyperlink{structentity}{entity} $\ast$monstre, \hyperlink{structentity}{entity} $\ast$joueur)
+\begin{DoxyCompactList}\small\item\em Fait combattre le joueur contre un monstre. \end{DoxyCompactList}\item 
+\hypertarget{rencontre__combat_8c_a5266db01d51453d8ac04ec5087351343}{void \hyperlink{rencontre__combat_8c_a5266db01d51453d8ac04ec5087351343}{Tester\-\_\-fonctions} ()}\label{rencontre__combat_8c_a5266db01d51453d8ac04ec5087351343}
+
+\begin{DoxyCompactList}\small\item\em Permet de tester les fonctions Rencontre et Combattre. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+Fichier contenant les fonctions Rencontre et Combattre. Les modules joueur et monstre les utilisent pour s'affronter \begin{DoxyDate}{Date}
+Décembre 2015 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Auteur}
+Junior, Alizée 
+\end{DoxyAuthor}
+
+
+\subsection{Documentation des fonctions}
+\hypertarget{rencontre__combat_8c_af5815bb0d5ee0664ee549dfdae20895e}{\index{rencontre\-\_\-combat.\-c@{rencontre\-\_\-combat.\-c}!Combattre@{Combattre}}
+\index{Combattre@{Combattre}!rencontre_combat.c@{rencontre\-\_\-combat.\-c}}
+\subsubsection[{Combattre}]{\setlength{\rightskip}{0pt plus 5cm}void Combattre (
+\begin{DoxyParamCaption}
+\item[{{\bf entity} $\ast$}]{monstre, }
+\item[{{\bf entity} $\ast$}]{joueur}
+\end{DoxyParamCaption}
+)}}\label{rencontre__combat_8c_af5815bb0d5ee0664ee549dfdae20895e}
+
+
+Fait combattre le joueur contre un monstre. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em monstre} & Entité le représentant \\
+\hline
+{\em joueur} & Entité le représentant \\
+\hline
+\end{DoxyParams}
+\hypertarget{rencontre__combat_8c_a152676cd012a7bb6f2527713667610c5}{\index{rencontre\-\_\-combat.\-c@{rencontre\-\_\-combat.\-c}!Rencontre@{Rencontre}}
+\index{Rencontre@{Rencontre}!rencontre_combat.c@{rencontre\-\_\-combat.\-c}}
+\subsubsection[{Rencontre}]{\setlength{\rightskip}{0pt plus 5cm}int Rencontre (
+\begin{DoxyParamCaption}
+\item[{{\bf entity}}]{monstre, }
+\item[{{\bf entity}}]{joueur}
+\end{DoxyParamCaption}
+)}}\label{rencontre__combat_8c_a152676cd012a7bb6f2527713667610c5}
+
+
+Indique si le joueur et le monstre sont positionnés côte à côte. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em monstre} & Entité le représentant \\
+\hline
+{\em joueur} & Entité le représentant \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+1 si la rencontre est effectuée 0 sinon 
+\end{DoxyReturn}

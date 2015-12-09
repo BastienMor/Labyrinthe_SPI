@@ -1,0 +1,98 @@
+\hypertarget{monstre_8c}{\section{Référence du fichier monstre.\-c}
+\label{monstre_8c}\index{monstre.\-c@{monstre.\-c}}
+}
+
+
+Module permettant d'utiliser les différentes fonctions associées au(x) monstre(s) présent(s) dans le jeu.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}Outil.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__inventaire}{t\-\_\-inventaire}
+\item 
+struct \hyperlink{structentity}{entity}
+\item 
+struct \hyperlink{structt__salle}{t\-\_\-salle}
+\end{DoxyCompactItemize}
+\subsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{monstre_8c_ad82ada1a9254337d3ea2b45d9abd9e25}{Monstre\-\_\-initialiser} (\hyperlink{structentity}{entity} monstre)
+\begin{DoxyCompactList}\small\item\em Initialise les statistiques du monstre. \end{DoxyCompactList}\item 
+void \hyperlink{monstre_8c_a254fa7caa73368f2c8ccb953724c9160}{Monstre\-\_\-deplacer} (\hyperlink{structentity}{entity} monstre)
+\begin{DoxyCompactList}\small\item\em Permet de faire déplacer le monstre de manière aléatoire en fonction du chemin qu'il prend. \end{DoxyCompactList}\item 
+void \hyperlink{monstre_8c_a1d129c05eb253ad274b6bfae5385afd8}{Monstre\-\_\-positionner} (int $\ast$x, int $\ast$y, \hyperlink{structentity}{entity} monstre)
+\begin{DoxyCompactList}\small\item\em Permet de récupérer les positions x et y du joueur. \end{DoxyCompactList}\item 
+\hypertarget{monstre_8c_a3b87df57b3077313612810f258088136}{void \hyperlink{monstre_8c_a3b87df57b3077313612810f258088136}{Labyrinthe\-\_\-orienter} (int $\ast$nord, int $\ast$est, int $\ast$sud, int $\ast$ouest, \hyperlink{structentity}{entity} monstre)}\label{monstre_8c_a3b87df57b3077313612810f258088136}
+
+\begin{DoxyCompactList}\small\item\em Maj ds labyrinthe\mbox{[}x\mbox{]}\mbox{[}y\mbox{]} les directions valides si X\-Y est la place du joueur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Description détaillée}
+Module permettant d'utiliser les différentes fonctions associées au(x) monstre(s) présent(s) dans le jeu. \begin{DoxyDate}{Date}
+Novembre 2015 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Auteur}
+Junior 
+\end{DoxyAuthor}
+
+
+\subsection{Documentation des fonctions}
+\hypertarget{monstre_8c_a254fa7caa73368f2c8ccb953724c9160}{\index{monstre.\-c@{monstre.\-c}!Monstre\-\_\-deplacer@{Monstre\-\_\-deplacer}}
+\index{Monstre\-\_\-deplacer@{Monstre\-\_\-deplacer}!monstre.c@{monstre.\-c}}
+\subsubsection[{Monstre\-\_\-deplacer}]{\setlength{\rightskip}{0pt plus 5cm}void Monstre\-\_\-deplacer (
+\begin{DoxyParamCaption}
+\item[{{\bf entity}}]{monstre}
+\end{DoxyParamCaption}
+)}}\label{monstre_8c_a254fa7caa73368f2c8ccb953724c9160}
+
+
+Permet de faire déplacer le monstre de manière aléatoire en fonction du chemin qu'il prend. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em monstre} & Entité le représentant \\
+\hline
+\end{DoxyParams}
+\hypertarget{monstre_8c_ad82ada1a9254337d3ea2b45d9abd9e25}{\index{monstre.\-c@{monstre.\-c}!Monstre\-\_\-initialiser@{Monstre\-\_\-initialiser}}
+\index{Monstre\-\_\-initialiser@{Monstre\-\_\-initialiser}!monstre.c@{monstre.\-c}}
+\subsubsection[{Monstre\-\_\-initialiser}]{\setlength{\rightskip}{0pt plus 5cm}void Monstre\-\_\-initialiser (
+\begin{DoxyParamCaption}
+\item[{{\bf entity}}]{monstre}
+\end{DoxyParamCaption}
+)}}\label{monstre_8c_ad82ada1a9254337d3ea2b45d9abd9e25}
+
+
+Initialise les statistiques du monstre. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em monstre} & Variable de type entity correspondant au monstre \\
+\hline
+\end{DoxyParams}
+\hypertarget{monstre_8c_a1d129c05eb253ad274b6bfae5385afd8}{\index{monstre.\-c@{monstre.\-c}!Monstre\-\_\-positionner@{Monstre\-\_\-positionner}}
+\index{Monstre\-\_\-positionner@{Monstre\-\_\-positionner}!monstre.c@{monstre.\-c}}
+\subsubsection[{Monstre\-\_\-positionner}]{\setlength{\rightskip}{0pt plus 5cm}void Monstre\-\_\-positionner (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{{\bf entity}}]{monstre}
+\end{DoxyParamCaption}
+)}}\label{monstre_8c_a1d129c05eb253ad274b6bfae5385afd8}
+
+
+Permet de récupérer les positions x et y du joueur. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em x} & Position x du monstre (horizontal) \\
+\hline
+{\em y} & Position y du monstre (vertical) \\
+\hline
+{\em mosntre} & Entité le représentant \\
+\hline
+\end{DoxyParams}

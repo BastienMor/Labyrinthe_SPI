@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.3.1"/>
+<title>La vie dans un labyrinthe: RÃ©fÃ©rence du fichier liste_ptr.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">La vie dans un labyrinthe
+   </div>
+   <div id="projectbrief">Projet de rÃ©alisation de jeu en L2 SPI</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- GÃ©nÃ©rÃ© par Doxygen 1.8.3.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Liste&#160;des&#160;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Membres&#160;de&#160;fichier</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Fichiers</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Fonctions</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">DÃ©finitions de type</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">RÃ©fÃ©rence du fichier liste_ptr.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Mise en oeuvre par pointeurs d'une liste d'entites.  
+<a href="#details">Plus de dÃ©tails...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;stdlib.h&gt;</code><br/>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structelement.html">element</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae6ad0540d5109a0200f0dde5dc5b4bf6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6ad0540d5109a0200f0dde5dc5b4bf6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>TAILLE_MAX</b>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:ae6ad0540d5109a0200f0dde5dc5b4bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+DÃ©finitions de type</h2></td></tr>
+<tr class="memitem:aaa9f09bf55fb32a9090e2dc051b75a6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa9f09bf55fb32a9090e2dc051b75a6a"></a>
+typedef struct <a class="el" href="structelement.html">element</a>&#160;</td><td class="memItemRight" valign="bottom"><b>t_element</b></td></tr>
+<tr class="separator:aaa9f09bf55fb32a9090e2dc051b75a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a4fe6a1e67a4e3ed6e67a91704873d7c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fe6a1e67a4e3ed6e67a91704873d7c2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a4fe6a1e67a4e3ed6e67a91704873d7c2">init_liste</a> (void)</td></tr>
+<tr class="memdesc:a4fe6a1e67a4e3ed6e67a91704873d7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise la liste à vide. <br/></td></tr>
+<tr class="separator:a4fe6a1e67a4e3ed6e67a91704873d7c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe45fd5070eb60299f0a3bd3966f08c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#afe45fd5070eb60299f0a3bd3966f08c2">liste_vide</a> (void)</td></tr>
+<tr class="memdesc:afe45fd5070eb60299f0a3bd3966f08c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend vrai si la liste est vide, faux sinon.  <a href="#afe45fd5070eb60299f0a3bd3966f08c2">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:afe45fd5070eb60299f0a3bd3966f08c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e896de22b4397a926c2abd2e4c87632"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a7e896de22b4397a926c2abd2e4c87632">hors_liste</a> (void)</td></tr>
+<tr class="memdesc:a7e896de22b4397a926c2abd2e4c87632"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend vrai si l'elt courant est hors de la liste, faux sinon.  <a href="#a7e896de22b4397a926c2abd2e4c87632">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:a7e896de22b4397a926c2abd2e4c87632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bffc867f488d8d261235302bdfa88fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a0bffc867f488d8d261235302bdfa88fe">entite_ajouter</a> (<a class="el" href="structentity.html">entity</a> entite_nouv)</td></tr>
+<tr class="memdesc:a0bffc867f488d8d261235302bdfa88fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une entité à la liste.  <a href="#a0bffc867f488d8d261235302bdfa88fe">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:a0bffc867f488d8d261235302bdfa88fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5582cc58027dcb38167db371ca5a59e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5582cc58027dcb38167db371ca5a59e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#ab5582cc58027dcb38167db371ca5a59e">entite_supprimer</a> ()</td></tr>
+<tr class="memdesc:ab5582cc58027dcb38167db371ca5a59e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime une entité <br/></td></tr>
+<tr class="separator:ab5582cc58027dcb38167db371ca5a59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c8f33d120e7f4119996e03b9ad6fd89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a7c8f33d120e7f4119996e03b9ad6fd89">entite_joueur</a> (<a class="el" href="structentity.html">entity</a> *joueur)</td></tr>
+<tr class="memdesc:a7c8f33d120e7f4119996e03b9ad6fd89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positionne l'élément courant sur l'entité joueur.  <a href="#a7c8f33d120e7f4119996e03b9ad6fd89">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:a7c8f33d120e7f4119996e03b9ad6fd89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68274781c5c541e03951b5e3f408e1d2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68274781c5c541e03951b5e3f408e1d2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a68274781c5c541e03951b5e3f408e1d2">en_tete</a> (void)</td></tr>
+<tr class="memdesc:a68274781c5c541e03951b5e3f408e1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positionne en tête de liste l'élément courant. <br/></td></tr>
+<tr class="separator:a68274781c5c541e03951b5e3f408e1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaacc4277d423e99a9c929cdadb00a65c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaacc4277d423e99a9c929cdadb00a65c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#aaacc4277d423e99a9c929cdadb00a65c">en_queue</a> (void)</td></tr>
+<tr class="memdesc:aaacc4277d423e99a9c929cdadb00a65c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positionne en queue de liste l'élément courant. <br/></td></tr>
+<tr class="separator:aaacc4277d423e99a9c929cdadb00a65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba3481c44d08ff46e055638e2c4ff18"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ba3481c44d08ff46e055638e2c4ff18"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a2ba3481c44d08ff46e055638e2c4ff18">precedent</a> (void)</td></tr>
+<tr class="memdesc:a2ba3481c44d08ff46e055638e2c4ff18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positionne sur l'élément précédent. <br/></td></tr>
+<tr class="separator:a2ba3481c44d08ff46e055638e2c4ff18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cd9c9ae9a2d39e81678f35d50540d36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cd9c9ae9a2d39e81678f35d50540d36"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a5cd9c9ae9a2d39e81678f35d50540d36">suivant</a> (void)</td></tr>
+<tr class="memdesc:a5cd9c9ae9a2d39e81678f35d50540d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positionne sur l'élément suivant. <br/></td></tr>
+<tr class="separator:a5cd9c9ae9a2d39e81678f35d50540d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a089157b5c0e5b347061e0962df0c2399"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a089157b5c0e5b347061e0962df0c2399">valeur_elt</a> (int *v)</td></tr>
+<tr class="memdesc:a089157b5c0e5b347061e0962df0c2399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renvoie dans la variable v la valeur de l'élément courant.  <a href="#a089157b5c0e5b347061e0962df0c2399">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:a089157b5c0e5b347061e0962df0c2399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adffd7e828cd3dd565e6b2ec68a78e4a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#adffd7e828cd3dd565e6b2ec68a78e4a9">modif_elt</a> (int v)</td></tr>
+<tr class="memdesc:adffd7e828cd3dd565e6b2ec68a78e4a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affecte la variable v à l'élément courant.  <a href="#adffd7e828cd3dd565e6b2ec68a78e4a9">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:adffd7e828cd3dd565e6b2ec68a78e4a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57856163b52ded5202bc05d00a0ab027"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57856163b52ded5202bc05d00a0ab027"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a57856163b52ded5202bc05d00a0ab027">oter_elt</a> (void)</td></tr>
+<tr class="memdesc:a57856163b52ded5202bc05d00a0ab027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supprime l'élément courant et positionne sur l'élément précédent. <br/></td></tr>
+<tr class="separator:a57856163b52ded5202bc05d00a0ab027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c7958b47bc369d6209b8bc003c36c07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#a1c7958b47bc369d6209b8bc003c36c07">ajout_droit</a> (int v)</td></tr>
+<tr class="memdesc:a1c7958b47bc369d6209b8bc003c36c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une novelle structure et sa valeur v à droite de l'élément courant.  <a href="#a1c7958b47bc369d6209b8bc003c36c07">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:a1c7958b47bc369d6209b8bc003c36c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae14ce8bcf8960999c92fffc13056b2e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="liste__ptr_8c.html#ae14ce8bcf8960999c92fffc13056b2e5">ajout_gauche</a> (int v)</td></tr>
+<tr class="memdesc:ae14ce8bcf8960999c92fffc13056b2e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une nouvelle structure et sa valeur v à gauche de l'élément courant.  <a href="#ae14ce8bcf8960999c92fffc13056b2e5">Plus de dÃ©tails...</a><br/></td></tr>
+<tr class="separator:ae14ce8bcf8960999c92fffc13056b2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac999d639558f7627718e3bcf4fe73517"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac999d639558f7627718e3bcf4fe73517"></a>
+<a class="el" href="structelement.html">t_element</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>flag</b></td></tr>
+<tr class="separator:ac999d639558f7627718e3bcf4fe73517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83e284277b289c539a4fda0cbffda4da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83e284277b289c539a4fda0cbffda4da"></a>
+<a class="el" href="structelement.html">t_element</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>elem</b></td></tr>
+<tr class="separator:a83e284277b289c539a4fda0cbffda4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description dÃ©taillÃ©e</h2>
+<div class="textblock"><p>Mise en oeuvre par pointeurs d'une liste d'entites. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Bastien </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Décembre 2015 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a class="anchor" id="a1c7958b47bc369d6209b8bc003c36c07"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ajout_droit </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une novelle structure et sa valeur v à droite de l'élément courant. </p>
+<dl class="params"><dt>ParamÃ¨tres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Valeur de la nouvelle structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae14ce8bcf8960999c92fffc13056b2e5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ajout_gauche </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une nouvelle structure et sa valeur v à gauche de l'élément courant. </p>
+<dl class="params"><dt>ParamÃ¨tres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Valeur de la nouvelle structure </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0bffc867f488d8d261235302bdfa88fe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void entite_ajouter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structentity.html">entity</a>&#160;</td>
+          <td class="paramname"><em>entite_nouv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une entité à la liste. </p>
+<dl class="params"><dt>ParamÃ¨tres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entite_nouv</td><td>Correspond à la variable qui va être ajouté de type entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7c8f33d120e7f4119996e03b9ad6fd89"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void entite_joueur </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structentity.html">entity</a> *&#160;</td>
+          <td class="paramname"><em>joueur</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Positionne l'élément courant sur l'entité joueur. </p>
+<dl class="params"><dt>ParamÃ¨tres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">joueur</td><td>Variable de type entity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7e896de22b4397a926c2abd2e4c87632"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hors_liste </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rend vrai si l'elt courant est hors de la liste, faux sinon. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>1 si elem est identique à flag 0 sinon </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afe45fd5070eb60299f0a3bd3966f08c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int liste_vide </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rend vrai si la liste est vide, faux sinon. </p>
+<dl class="section return"><dt>Renvoie</dt><dd>1 si le suivant de flag est identique à lui-même 0 sinon </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="adffd7e828cd3dd565e6b2ec68a78e4a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void modif_elt </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Affecte la variable v à l'élément courant. </p>
+<dl class="params"><dt>ParamÃ¨tres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Variable de type int qui est affectée à l'élément courant </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a089157b5c0e5b347061e0962df0c2399"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void valeur_elt </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renvoie dans la variable v la valeur de l'élément courant. </p>
+<dl class="params"><dt>ParamÃ¨tres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Variable de type int qui est modifié en donnant la valeur de l'élément courant </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+GÃ©nÃ©rÃ© le Mercredi DÃ©cembre 9 2015 12:06:42 pour La vie dans un labyrinthe par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.3.1
+</small></address>
+</body>
+</html>

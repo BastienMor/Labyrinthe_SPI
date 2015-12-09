@@ -1,11 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {int id; char nom[30]; char description[30]; int valeur; int atk; int def; int vitesse; int hp; int heal;}t_objet;
+/**
+\file objets.c
+\brief Lecture des fichiers contenant les différents éléments du jeu
+\date Décembre 2015
+\author Bastien
+*/
 
+
+typedef struct {int id; char nom[30]; char description[30]; int valeur; int atk; int def; int vitesse; int hp; int heal;}t_objet;
 t_objet table[100];
 char control[15];
-
+/**
+\fn void lire_chaine(FILE * obj, char chaine[30])
+\brief Permet de lire une chaîne de caractères terminée par le marqueur @
+\param obj Variable de type FILE permettant de lire un fichier
+\param chaine[30] tableau de caractères permettant de lire une chaine de caractères
+*/
 void lire_chaine(FILE * obj, char chaine[30])
 {
 	char c;
@@ -21,7 +33,11 @@ void lire_chaine(FILE * obj, char chaine[30])
 	a++;
 	}while (c != '@');
 }
-
+/**
+\fn void objet_stats(int i)
+\brief Affiche les statistiques de l'objet en question
+\param i Correspond à l'indice du tableau contenant les informations sur l'objet
+*/
 void objet_stats(int i)
 {
 	printf("╔════════════════════════════════════════════════════\n║	ID : %i\n", table[i].id);
@@ -35,7 +51,10 @@ void objet_stats(int i)
 	printf("║	heal : %i\n", table[i].heal);
 	printf("╚════════════════════════════════════════════════════\n");
 }
-
+/**
+\fn void ctrl_disp(void)
+\brief Affiche les commandes que l'utilisateur utilise pour jouer au jeu
+*/
 void ctrl_disp()
 {
 	printf("╔════════════════════════════════════════════════════\n║	Avancé / Haut : %c\n", control[0]);

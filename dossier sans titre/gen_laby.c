@@ -2,41 +2,23 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "monstre.h"
-#include <time.h>
 
 #define N 15
 #define M 12 
 
 t_salle labyrinthe[N][M];
 
-void labyrinthe_orienter(int *nord, int *est, int *sud, int *ouest, entity monstre){//maj ds labyrinthe[x][y] les directions valides si XY est la place du joueur
-	int x, y;
-	monstrepos(&x, &y, monstre);
-	
-	*nord = 1;
-	*est = 1;
-	*sud = 1;
-	*ouest = 1;
-	
-	if(labyrinthe[x][y].haut == 1)
-	{
-		*nord = 0;
-	}
-	if(labyrinthe[x][y].droite == 1)
-	{
-		*est = 0;
-	}
-	if(labyrinthe[x][y].bas == 1)
-	{
-		*sud = 0;
-	}
-	if(labyrinthe[x][y].gauche == 1)
-	{
-		*ouest = 0;
-	}
-}
+/**
+\file gen_laby.c
+\brief Génération de labyrinthe
+\author Junior
+\date Décembre 2015
+*/
 
-//génération d'une grille
+/**
+\fn void Labyrinthe_initialiser
+\brief Génère un labyrinthe
+*/
 void Labyrinthe_initialiser()
 {
 	int i,j;
@@ -186,7 +168,6 @@ int main(){
 	entity monstre;
 	
 	Monstre_initialiser(monstre);
-	srand(time(NULL)); // Une fois suffit 
 	
 	Labyrinthe_initialiser();
 	Labyrinthe_afficher();
@@ -206,8 +187,6 @@ int main(){
 	monstre.y=0;
 	
 	Labyrinthe_afficher2(ligne);
-	
-	Monstre_deplacer(monstre);
 	
 	return 0;
 }

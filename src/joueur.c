@@ -2,12 +2,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Outil.h"
-#include "rencontre_combat.h"
+#include "include/Outil.h"
+#include "include/joueur.h"
+#include "include/rencontre_combat.h"
+#include "include/labyrinthe.h"
 #define N 5
 
-// Structures de données 
-typedef struct {int etat; int haut;int bas;int gauche;int droite; t_inventaire objets; int entite;}t_salle;
+
+// Structures de données
+typedef struct inventaire{int etat; int contenu[50]; struct inventaire *locker[10];}t_inventaire;
+typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
+typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
 
 //Fonctions d'initialisation
 void Joueur_initialiser(entity joueur){ // Initialise les stats du joueur, peut être réutilisé plusieurs fois
@@ -34,24 +39,12 @@ int bPartie_finie(){ //Indique la fin de partie
 	}
 	return 0;
 }
-/*
-int bLabyrinthe_checker(t_salle labyrinthe[N][N]){ //Vérifie le contenu d'une case de la salle	
-	int cellule;
-	//monstre=1, objet=2, mur=3;
-	scanf("%i", &cellule);
-	if(cellule == 1)
-		return 1;
-	if(cellule == 2)
-		return 2;
-	if(cellule == 3)
-		return 3;
-	return 0;
-}
 
-int bObjet(t_salle labyrinthe){ //Indique la présence ou non d'un objet au sol 
+int bObjet(t_salle labyrinthe[N][N]){ //Indique la présence ou non d'un objet au sol 
 	int x; int y;
 	joueurpos(&x, &y);
-	if(bLabyrinthe_checker(labyrinthe[x][y]) == 2){
+	Labyrinthe_examiner(x, y, &joueur.inventaire);
+	if(){
 		return 1;
 	}
 	return 0;
@@ -61,7 +54,7 @@ int bMonstre(t_salle labyrinthe[N][N]){ //Indique la présence ou non d'un monst
 	entity monstre;
 	int x; int y;
 	joueurpos(&x, &y);
-	if(bLabyrinthe_checker(labyrinthe[x-1][y]) ==1 || bLabyrinthe_checker(labyrinthe[x+1][y])==1 || bLabyrinthe_checker(labyrinthe[x][y-1])==1 || bLabyrinthe_checker(labyrinthe[x][y+1])==1)
+	if()
 		return 1;
 	return 0;
 }
@@ -71,12 +64,20 @@ int bMur(entity joueur, t_salle labyrinthe[N][N]){ //Indique la présence ou non
 	joueurpos(&x, &y);
 	for(i=1; i<=4; i++){
 		joueur.orientation = i;
-		if(bLabyrinthe_checker(labyrinthe[x-1][y]) ==3 || bLabyrinthe_checker(labyrinthe[x+1][y])==3 || bLabyrinthe_checker(labyrinthe[x][y-1])==3 || bLabyrinthe_checker(labyrinthe[x][y+1])==3)
+		if()
 			return 1;
 		return 0;	
 	}
 }
-*/
+
+
+//Fonctions de modification
+void Objet_recuperer(entity * joueur){
+	
+}
+void Joueur_hp_modifier(entity * joueur){
+
+}
 
 // Fonctions Joueur 
 void Joueur_deplacer(entity joueur, t_salle labyrinthe[N][N]){
@@ -90,7 +91,8 @@ void Joueur_deplacer(entity joueur, t_salle labyrinthe[N][N]){
 			printf(" d - Tourner à droite\n");
 		if(ouest == 1)
 			printf(" q - Tourner à gauche\n");
-		printf("n");
+		
+		printf("\n");
 		printf("Votre choix : ");
 		scanf("%c", &bouger);
 		switch(bouger){
@@ -102,15 +104,28 @@ void Joueur_deplacer(entity joueur, t_salle labyrinthe[N][N]){
 		}
 	}while(bouger!=0);
 }
-/*
+
 void Joueur_combattre(entity joueur){ // Fait combattre le joueur contre un monstre
 	entity monstre;	
 	Combattre(monstre, joueur);
 }
-*/
+
 void Joueur_agir(t_salle labyrinthe[N][N], entity joueur, entity monstre) { // Permet de faire agir le joueur pendant le tour 
 	int tour=0;
-	
+	while(!bPartie_finie()){
+		//Vérification de la présence d'objet(s) au sol 
+		if(bObjet(labyrinthe[N][N]) == 1){
+			Objet_recuperer(&joueur);
+		}
+		//Vérification de la présence d'un monstre
+		if(bMonstre(labyrinthe[N][N]) == 1){
+			Joueur_combattre(joueur);
+		}
+		//Vérifications de la présence des murs pour avancer 
+		if(bMur(joueur, labyrinthe[N][N]) == 0){
+			Joueur_deplacer(joueur, labyrinthe[N][N]);		
+		}
+	}
 	/* Boucle tour du joueur
 	 Vérification de la présence d'objets au sol 
 		 Si présence alors récupération de l'objet 
@@ -119,8 +134,7 @@ void Joueur_agir(t_salle labyrinthe[N][N], entity joueur, entity monstre) { // P
 		 Perte des points de vie possible 
 	 Vérfication des murs présents ou absents autour de lui 
 		 Si absence du mur dans une direction alors possibilité de se déplacer 
-	   Fin du tour du joueur */
-	   
+	   Fin du tour du joueur */   
 }
 
 void Joueur_tester(int var){ // Vérification des fonctions 
@@ -148,7 +162,6 @@ void Joueur_tester(int var){ // Vérification des fonctions
 	}while(var!=0);
 	Dis(" A bientôt !\n");
 }
-
 
 //Programme principal
 int main(){  

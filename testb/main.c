@@ -249,7 +249,7 @@ void labyrinthe_afficher()
 }
 
 
-/*
+
 void vu_disp(int orientation, int x, int y)
 {
 	int i;
@@ -310,13 +310,15 @@ void labyrinthe_disp()
 }
 
 
+/*
+
 //creation d'une salle
 void labyrinthe_saller()
 {
 	
 }
 
-
+*/
 
 
 
@@ -349,7 +351,7 @@ void init_couloir ()
 		}
 	}
 }
-*/
+
 
 
 
@@ -479,7 +481,11 @@ int main() {
 	init_player();
 	labyrinthe_afficher();
 	//labyrinthe_disp();
-	Joueur_agir();
+	int x, y;
+	joueurpos(&x, &y);
+	int orientation = joueur.orientation;
+	vu_disp(orientation, x, y);
+	//Joueur_agir();
 	
 	
 

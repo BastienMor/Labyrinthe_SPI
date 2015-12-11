@@ -3,12 +3,14 @@
 #include <assert.h>
 //#include "Outil.h"
 
-#define N 5
+#define N 7
+
+//fwrite();
 
 
 //typedef enum{};
 
-typedef struct inventaire{int etat; int contenue[50]; struct inventaire *locker[10];}t_inventaire;
+typedef struct inventaire{int etat; int contenue[20]; struct inventaire *locker[10];}t_inventaire;
 
 typedef struct {int id; int hp; int action; t_inventaire inventaire; int orientation;}entity;
 
@@ -249,6 +251,64 @@ void labyrinthe_afficher()
 }
 
 
+void vu_disp()
+{
+	int i, x, y;
+	joueurpos(&x, &y);
+	
+	printf("\n");
+	for(i=0; i<8; i++)
+	{
+		if(labyrinthe[x-1][y].gauche == 1)
+		{
+			printf("■■■■■");
+		}
+		else
+		{
+			printf("     ");
+		}
+		
+		if(labyrinthe[x-2][y].gauche == 1)
+		{
+			printf("■■■|");
+		}
+		else
+		{
+			printf("   |");
+		}
+		
+		if labyrinthe[x-2][y].haut == 1)
+		{
+			printf("__________");
+		}
+		else
+		{
+			printf("■■■■■■■■");
+		}
+		
+		if(labyrinthe[x-2][y].droite == 1)
+		{
+			printf("|■■■");
+		}
+		else
+		{
+			printf("|   ");
+		}
+		if(labyrinthe[x-1][y].gauche == 1)
+		{
+			printf("■■■■■\n");
+		}
+		else
+		{
+			printf("     \n");
+		}
+		
+	}
+}
+
+
+
+
 //creation d'une salle
 void labyrinthe_saller()
 {
@@ -354,12 +414,31 @@ void deplacement(int direction)
 // Fonctions Joueur
 int Joueur_deplacer(int action){
 	int nord, sud, est, ouest;
+	int devant, droite, derriere, gauche;
+	int orientation
 	int fin_action = 0;
 	int agir = 1;
 	char bouger;
 	
 	labyrinthe_orienter(&nord, &est, &sud, &ouest);
-	while(getchar() != '\n');
+	
+	devant = joueur.orientation;
+	/*if (orientation-1 < 1)
+	{
+		gauche = 4;
+		droite = 2;
+		derriere = 3
+	}
+	else if (orientation+1 > 4)
+	{
+		droite = 1;
+		gauche = 3;
+		derriere = 2;
+	}
+	else
+	{
+		
+	}*/
 	
 	do{
 		labyrinthe_afficher();
@@ -376,10 +455,10 @@ int Joueur_deplacer(int action){
 		
 		scanf("%c", &bouger);
 		switch(bouger){
-			case 'z': if(nord == 1){deplacement(1); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 'q': if(ouest == 1){deplacement(4); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 's': if(sud == 1){deplacement(3); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 'd': if(est == 1){deplacement(2); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
+			case 'z': if(nord == 1){deplacement(orientation); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
+			case 'q': if(ouest == 1){deplacement(orientation+1); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
+			case 's': if(sud == 1){deplacement(orientation-1); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
+			case 'd': if(est == 1){deplacement(orientation); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
 			case 'c': agir=0; fin_action=1; break;
 			default: printf("Entré non valide\n");
 		}
@@ -396,6 +475,7 @@ void Joueur_agir() { // Permet de faire agir le joueur pendant le tour
 	//joueur_stats();
 	int action = joueur.action;
 	int hp = joueur.hp;
+	int orientation = joueur.orientation;
 	int agir = 0;
 	int fin_action = 0;
 	char c;
@@ -403,7 +483,7 @@ void Joueur_agir() { // Permet de faire agir le joueur pendant le tour
 	do{
 		labyrinthe_afficher();
 		printf("════Menu═══PA:%i/══%i/══\n\n 1 - Déplacement\n 2 - Check salle\n 3 - Se tourné\n 4 - combattre\n 5 - Fin de tour\n", action, hp);
-		c = getchar();
+		scanf("%c", &c);
 		switch(c){
 			case '1': agir = Joueur_deplacer(action); break;
 			case '2': break;
@@ -424,6 +504,7 @@ int main() {
 	init_couloir();
 	salle_conditionner();
 	init_player();
+	vu_disp();
 	labyrinthe_afficher();
 	//labyrinthe_disp();
 	Joueur_agir();

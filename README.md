@@ -3,7 +3,7 @@
 
 ##Règles du jeu
 Le jeu se déroule comme suit :  
-⇢ Le joueur se balade dans un labyrinthe généré aléatoirement. Le labyrinthe évolue en fonction de la difficulté. Les statistiques du joueur peuvent changer au cours du jeu. Pour vivre, le joueur doit récupérer des objets disposés au sol et vaincre des monstres qui sont présents dans le labyrinthe.
+⇢ Le joueur se déplace dans un labyrinthe généré aléatoirement. Le labyrinthe évolue en fonction de la difficulté. Les statistiques du joueur peuvent changer au cours du jeu. Pour vivre, le joueur doit récupérer des objets disposés au sol et vaincre des monstres qui sont présents dans le labyrinthe.
 
 ##Programmation du jeu
 ###Se donner une idée du main - La boucle principale
@@ -24,7 +24,7 @@ Le jeu se déroule comme suit :
 
 * Structures de données  
 
-	`typedef struct inventaire{int etat; int contenue[10]; struct inventaire *locker[10];}t_inventaire;`  
+	`typedef struct {int etat; int contenu[10];}t_inventaire;`  
 	`typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;`  
 	`typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;`  
     	`t_salle labyrinthe[N][N];`  

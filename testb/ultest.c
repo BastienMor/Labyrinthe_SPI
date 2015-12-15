@@ -1,56 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-//#include "Outil.h"
-
-#define N 7
+#include "lib.h"
+#define N 12
 
 //fwrite();
 
-
-//typedef enum{};
-
-typedef struct inventaire{int etat; int contenue[20]; struct inventaire *locker[10];}t_inventaire;
+typedef struct {int etat; int contenu[20];}t_inventaire;
 
 typedef struct {int id; int hp; int action; t_inventaire inventaire; int orientation;}entity;
 
 typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
 
-char control[15];
-
 t_salle labyrinthe[N][N];
+
 entity joueur;
+
+char control[15];
 entity tab[10];
-int id_character = 1;
 
-
-void init_player()
-{
-	joueur.id = id_character;
-	joueur.hp = 100;
-	joueur.action = 8;
-	joueur.orientation = 1;
-	
-	labyrinthe[4][2].entite = joueur;
-}
-
-//trouver les x et y du joueur
-void joueurpos(int * x, int * y)
-{
-	int i, j;
-	
-	for (i=0; i<N; i++)
-	{
-		for(j=0; j<N; j++)
-		{
-			if (labyrinthe[i][j].entite.id == id_character)
-			{
-				*x = i;
-				*y = j;
-			}
-		}
-	}
-}
 
 //génération d'une grille
 void labyrinthe_initialiser()
@@ -62,6 +30,8 @@ void labyrinthe_amorcer()
 {
 	labyrinthe_initialiser();
 }
+
+
 
 //retourne ou l'on peut se déplacé JOUEUR UNIQUEMENT
 void labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
@@ -171,141 +141,6 @@ void labyrinthe_deplacer(entity qui, int orientation)
 
 
 //affiche le labyrinthe
-void labyrinthe_afficher()
-{
-	int i;
-	int j;
-	
-	for (i=0; i<N; i++)
-	{
-		for(j=0; j<N; j++)
-		{
-			printf("╔");
-			if(labyrinthe[i][j].haut == 1)
-			{
-				printf("═");
-			}
-			else
-			{
-				printf(" ");
-			}
-			printf("╗");
-		}
-		printf("\n");
-	
-	///////////////////////////////////////////////
-	
-	
-		for(j=0; j<N; j++)
-		{
-			if(labyrinthe[i][j].gauche == 1)
-			{
-				printf("║");
-			}
-			else
-			{
-				printf(" ");
-			}
-		
-			if(labyrinthe[i][j].etat == 1)
-			{
-				printf("■");
-			}
-			else if (labyrinthe[i][j].entite.id == id_character)
-			{
-				printf("□");
-			}
-			else
-			{
-				printf(" ");
-			}
-		
-			if(labyrinthe[i][j].droite == 1)
-			{
-				printf("║");
-			}
-			else
-			{
-				printf(" ");
-			}
-		}
-		printf("\n");
-
-	///////////////////////////////////////////////
-	
-		for(j=0; j<N; j++)
-		{
-			printf("╚");
-			if(labyrinthe[i][j].bas == 1)
-			{
-				printf("═");
-			}
-			else
-			{
-				printf(" ");
-			}
-			printf("╝");
-		}
-		printf("\n");
-	}
-}
-
-
-void vu_disp()
-{
-	int i, x, y;
-	joueurpos(&x, &y);
-	
-	printf("\n");
-	for(i=0; i<8; i++)
-	{
-		if(labyrinthe[x-1][y].gauche == 1)
-		{
-			printf("■■■■■");
-		}
-		else
-		{
-			printf("     ");
-		}
-		
-		if(labyrinthe[x-2][y].gauche == 1)
-		{
-			printf("■■■|");
-		}
-		else
-		{
-			printf("   |");
-		}
-		
-		if labyrinthe[x-2][y].haut == 1)
-		{
-			printf("__________");
-		}
-		else
-		{
-			printf("■■■■■■■■");
-		}
-		
-		if(labyrinthe[x-2][y].droite == 1)
-		{
-			printf("|■■■");
-		}
-		else
-		{
-			printf("|   ");
-		}
-		if(labyrinthe[x-1][y].gauche == 1)
-		{
-			printf("■■■■■\n");
-		}
-		else
-		{
-			printf("     \n");
-		}
-		
-	}
-}
-
 
 
 
@@ -314,8 +149,6 @@ void labyrinthe_saller()
 {
 	
 }
-
-
 
 
 
@@ -331,26 +164,17 @@ void init_couloir ()
 			labyrinthe[i][j].gauche = 1;
 			labyrinthe[i][j].haut = 1;
 			labyrinthe[i][j].bas = 1;
-			if (j == 2)
+			if (j == 2 || i == 2)
 			{
 				labyrinthe[i][j].etat = 0;	
 				labyrinthe[i][j].haut = 0;
 				labyrinthe[i][j].bas = 0;
-				if (i == 0)
-				{
-					labyrinthe[i][j].haut = 1;
-				}
-				if (i == N-1)
-				{
-					labyrinthe[i][j].bas = 1;
-				}
+				labyrinthe[i][j].gauche = 0;
+				labyrinthe[i][j].droite = 0;
 			}
 		}
 	}
 }
-
-
-
 
 
 void salle_conditionner()
@@ -379,124 +203,27 @@ void salle_conditionner()
 			{
 				labyrinthe[i][j].gauche = 1;
 			}
+			if (i == 0)
+			{
+				labyrinthe[i][j].haut = 1;
+			}
+			if (i == N-1)
+			{
+				labyrinthe[i][j].bas = 1;
+			}
+			if (j == 0)
+			{
+				labyrinthe[i][j].gauche = 1;
+			}
+			if (j == N-1)
+			{
+				labyrinthe[i][j].droite = 1;
+			}
 		}
 	}
 }
 
-
-
-
-
-void deplacement(int direction)
-{
-	int x, y;
-	joueurpos(&x, &y);
-	
-	if (direction == 1)
-	{
-		labyrinthe[x-1][y].entite = labyrinthe[x][y].entite;
-	}
-	else if (direction == 2)
-	{
-		labyrinthe[x][y+1].entite = labyrinthe[x][y].entite;
-	}
-	else if (direction == 3)
-	{
-		labyrinthe[x+1][y].entite = labyrinthe[x][y].entite;
-	}
-	else if (direction == 4)
-	{
-		labyrinthe[x][y-1].entite = labyrinthe[x][y].entite;
-	}
-	labyrinthe[x][y].entite.id = 0;
-}
-
-// Fonctions Joueur
-int Joueur_deplacer(int action){
-	int nord, sud, est, ouest;
-	int devant, droite, derriere, gauche;
-	int orientation
-	int fin_action = 0;
-	int agir = 1;
-	char bouger;
-	
-	labyrinthe_orienter(&nord, &est, &sud, &ouest);
-	
-	devant = joueur.orientation;
-	/*if (orientation-1 < 1)
-	{
-		gauche = 4;
-		droite = 2;
-		derriere = 3
-	}
-	else if (orientation+1 > 4)
-	{
-		droite = 1;
-		gauche = 3;
-		derriere = 2;
-	}
-	else
-	{
-		
-	}*/
-	
-	do{
-		labyrinthe_afficher();
-		printf("\n══Déplacement(s)═disponible(s)══PA:%i/8═\n", action);
-		if(nord == 1)
-			printf(" z - Avancer\n");
-		if(ouest == 1)
-			printf(" q - Strafé à gauche\n");
-		if(sud == 1)
-			printf(" s - Reculé\n");
-		if(est == 1)
-			printf(" d - Strafé à droite\n");
-		printf(" c - Retour\n");
-		
-		scanf("%c", &bouger);
-		switch(bouger){
-			case 'z': if(nord == 1){deplacement(orientation); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 'q': if(ouest == 1){deplacement(orientation+1); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 's': if(sud == 1){deplacement(orientation-1); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 'd': if(est == 1){deplacement(orientation); fin_action=1;}else{printf("Déplacement impossible !\n");} break;
-			case 'c': agir=0; fin_action=1; break;
-			default: printf("Entré non valide\n");
-		}
-	}while(!fin_action);
-	return agir;
-}
-
-
-
-
-void Joueur_agir() { // Permet de faire agir le joueur pendant le tour 
-	int tour=0;
-	
-	//joueur_stats();
-	int action = joueur.action;
-	int hp = joueur.hp;
-	int orientation = joueur.orientation;
-	int agir = 0;
-	int fin_action = 0;
-	char c;
-	
-	do{
-		labyrinthe_afficher();
-		printf("════Menu═══PA:%i/══%i/══\n\n 1 - Déplacement\n 2 - Check salle\n 3 - Se tourné\n 4 - combattre\n 5 - Fin de tour\n", action, hp);
-		scanf("%c", &c);
-		switch(c){
-			case '1': agir = Joueur_deplacer(action); break;
-			case '2': break;
-			case '3': break;
-			case '4': break;
-			case '5': fin_action = 1;break;
-			default: printf("Action non valide !\n");
-		}
-		action -= agir;
-	}while (action > 0 && !fin_action);  
-}
-
-
+//void play (int choix)
 
 
 int main() {
@@ -504,16 +231,14 @@ int main() {
 	init_couloir();
 	salle_conditionner();
 	init_player();
-	vu_disp();
-	labyrinthe_afficher();
-	//labyrinthe_disp();
+	//labyrinthe_afficher();
 	Joueur_agir();
 	
 	
 
-	/*Jeux_Initialiser(##labyrinthe, Joueur_Objet, Monstre_Objet_Liste);
-
-	while (!bPartie_finie(Joueur_Objet))
+	//Jeux_Initialiser();
+/*
+	while (joueur.hp != 0 || )
 	{
 		Joueur_Agir(#labyrinthe, Joueur_Objet, Monstre_Objet_Liste#);
 		Ecran_Afficher(labyrinthe);

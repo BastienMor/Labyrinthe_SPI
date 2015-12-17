@@ -5,9 +5,8 @@
 \file objets.c
 \brief Lecture des fichiers contenant les différents éléments du jeu
 \date Décembre 2015
-\author Bastien
+\author Bastien, Junior, Alizée
 */
-
 
 typedef struct {int id; char nom[30]; char description[30]; int valeur; int atk; int def; int vitesse; int hp; int heal;}t_objet;
 t_objet table[100];
@@ -71,15 +70,12 @@ void ctrl_disp()
 
 
 int main(){
-
 	int i = 0;
-	char charact;
-
+	char charact
 	FILE *obj;
 	obj = fopen("item.txt", "r");
 	FILE *ctrl;
 	ctrl = fopen("control.txt", "r");
-	
 	do{
 		fscanf(obj, "%i", &table[i].id);
 		lire_chaine(obj, table[i].nom);
@@ -95,9 +91,7 @@ int main(){
 		
 		i++;
 	}while (!feof(obj));
-	
 	i = 0;
-	
 	do{
 
 		fscanf(ctrl, "%c", &charact);
@@ -108,11 +102,8 @@ int main(){
 		
 		i++;
 	}while (charact != '@');
-	
 	ctrl_disp();
-	
 	fclose(obj);
 	fclose(ctrl);
-	
 	return 0;
 }

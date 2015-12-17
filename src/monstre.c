@@ -6,7 +6,7 @@
 \file monstre.c
 \brief Module permettant d'utiliser les différentes fonctions associées au(x) monstre(s) présent(s) dans le jeu
 \date Novembre 2015
-\author Junior
+\author Junior, Bastien, Alizée
 */
 
 typedef struct {int etat; int contenu[10];}t_inventaire;

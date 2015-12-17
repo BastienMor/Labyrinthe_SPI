@@ -12,9 +12,11 @@
 */
 
 // Structures de données 
-typedef struct inventaire{int etat; int contenu[50]; struct inventaire *locker[10];}t_inventaire;
-typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
+typedef struct {int etat; int contenu[50];}t_inventaire;
+typedef struct {int id; char nom[30]; char description[30]; int valeur; int atk; int def; int vitesse; int hp; int heal;}t_objet;
+typedef struct {int id; int hp; int action; t_inventaire inventaire; int x; int y; int orientation;}entity;
 typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
+t_objet table[100];
 
 /**
 \fn int Rencontre(entity monstre, entity joueur)
@@ -40,6 +42,30 @@ int Rencontre(entity monstre, entity joueur){
 	return 0;
 }
 
+void Objet_afficher(entity joueur){ //Affiche les objets de l'inventaire du joueur
+	//Récupérer obj_stats
+}
+
+void Objet_afficher(t_salle labyrinthe[N][N]){ //Affiche les objets présents dans le labyrinthe
+}
+
+void Objet_utiliser(entity * joueur){	//Le joueur utilise un objet parmi ceux dans son inventaire
+	int numobjet;
+	printf("Quel objet voulez-vous utiliser ?\n");
+	Objet_afficher(joueur);
+	printf("\nDonnez un numéro correspondant à l'objet voulu : ");
+	scanf("%i", &numobjet);
+	if(entity.t_inventaire.id == numobjet){
+		if(id)
+	}
+}
+
+
+
+
+
+
+
 /**
 \fn void Combattre(entity * monstre, entity * joueur)
 \brief Fait combattre le joueur contre un monstre
@@ -47,34 +73,29 @@ int Rencontre(entity monstre, entity joueur){
 \param joueur Entité le représentant
 */
 void Combattre(entity * monstre, entity * joueur){
+	int choix=0;
 	if(Rencontre(monstre,joueur) == 1){
-		
+		do{
+			printf(" Menu combat !\n");
+			printf("Que voulez-vous faire ?\n");
+			printf("1 - Attaque\n");
+			printf("2 - Attaque spéciale\n");
+			printf("3 - Utiliser un objet\n");
+			printf("4 - Ne rien faire");
+		}while(choix!=4);
+		switch(choix){
+			case 1: monstre.hp -= 10; break;
+			case 2: monstre.hp -= 50; break;
+			case 3: Objet_utiliser(&joueur); break;
+			case 4: break;
+		}
 	}
 }
 
-/**
-\fn Tester_fonctions(void)
-\brief Permet de tester les fonctions Rencontre et Combattre
-*/
-void Tester_fonctions(){
-	entity monstre;
+/*int main(){
 	entity joueur;
-	t_salle labyrinthe[N][N];
-	int var;
-	do{
-			printf("Test des fonctions :\n");
-			printf(" 1 - Rencontre\n");
-			printf(" 2 - Combattre\n");
-			printf("Votre choix : ");
-			scanf("%i", &var);
-			switch(var){
-				case 1 : Rencontre(monstre, joueur); break;
-				case 2 : Combattre(monstre, joueur); break;
-				case 0 : break;
-	while(var!=0);
-}
-
-int main(){
-	Tester_fonctions();
+	entity monstre;
+	Rencontre(joueur, monstre);
+	Combattre(&monstre, &joueur);
 	return 0;
-}
+}*/

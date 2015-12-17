@@ -29,8 +29,7 @@ void Jeu_charger(){
 
 
 //Menu lors du démarrage du jeu et menu pause du jeu
-void Menu(){
-	FILE * charger;
+void Menu(){ 
 	int choix;
 	do{
 		printf("╔═══════════════════════════════════════════════╗\n");

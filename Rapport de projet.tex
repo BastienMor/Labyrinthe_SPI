@@ -1,0 +1,195 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{array,multirow}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\lstset{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  tabsize=4,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange}
+}
+
+\title{Rapport de projet - Vie dans un labyrinthe}
+\author{BODINEAU Bastien, DURAN Alizée et NGATCHOU Junior}
+\date{Novembre 2015 - Janvier 2016}
+
+\begin{document}
+
+  \maketitle
+  \tableofcontents
+
+  \chapter{Présentation du sujet}
+  Dans cette première partie, nous allons expliquer le sujet ainsi que les modifications effectuées.
+    \section{Sujet du projet}
+    Pour l'UE Conduite de projet, il nous faut réaliser un jeu sur terminal avec possibilité de le faire avec une interface graphique (SDL). Parmi plusieurs sujets, nous avons choisi "Vie dans un labyrinthe". 
+
+    Le but de ce jeu est de faire évoluer des insectes à l'intérieur d'un labyrinthe, en s'inspirant du jeu de la vie, un jeu que l'on a déjà réalisé au cours de l'UE Algorithme et Programmation. Nous devons également informer l'utilisateur sur les statistiques de la population présente dans le labyrinthe, générer des déplacements semi-aléatoires et nourrir ces insectes.
+    \section{Modifications apportées au sujet}
+    Dans ce sujet, nous avons apporté des modifications afin de mieux étudier le sujet du jeu à réaliser. En premier lieu, nous avons préféré mettre des entités comme un joueur et un/plusieurs monstre(s). Les insectes peuvent tout à fait être des monstres que le joueur doit combattre.
+
+    Étant un point clé du jeu, une part du rapport est attribuée à la manière dont la génération du labyrinthe a été construite.
+  \chapter{Organisation du travail}
+  Ici, nous allons détailler la répartition du travail entre les étudiants en affectant chacun un module différent.
+    \section{Répartition des tâches}
+    Afin de concevoir correctement le programme du jeu, nous avons réparti les tâches en fonction de modules. En effet, trois modules principaux sont importants : le module du labyrinthe, le module du joueur et le module du monstre. Voici la répartition des tâches en fonction des étudiants :
+      \begin{table}[htbp]
+        \center
+        \caption{Répartition des tâches.}
+          \begin{tabular}{|c|c c c|}
+            \hline 
+                                   &Alizée       &Junior       &Bastien     \\
+            \hline
+                Module Joueur      &$\times$     &             &              \\
+                Module Monstre     &             &$\times$     &              \\
+                Module Labyrinthe  &             &             &$\times$     \\
+                Makefile           &             &$\times$     &$\times$     \\
+                Documentation      &$\times$     &             &             \\
+                
+            \hline
+          \end{tabular}
+      \end{table}
+    \section{Squelette du programme}
+	Ensuite, nous allons donner le squelette du programme où chaque module est imbriqué et est dépendant des deux autres modules:
+
+      \begin{lstlisting}[language=c]
+int main(){
+  //Mettre le code du main
+}
+      \end{lstlisting}
+  \chapter{Analyse du problème}
+  Dans cette partie, nous allons indiquer les structures de données que nous avons établies ainsi que la génération du labyrinthe, qui est un élément important du projet.
+    \section{Structures de données}
+    Dans un premier temps, nous donnons les différentes structures de données que chaque module possède :
+\begin{lstlisting}[language=c]
+  typedef struct inventaire{int etat; int contenu[10]; struct inventaire *locker[10];}t_inventaire;
+  typedef struct {int id; int hp; t_inventaire inventaire; int x; int y; int orientation;}entity;
+  typedef struct {int etat; int haut; int bas; int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
+  t_salle labyrinthe[N][N];
+  entity joueur;
+  entity monstre;
+  entity tab[10]; 
+\end{lstlisting}
+
+    Explications :
+
+      \begin{itemize}
+        \item $t_inventaire$ est la structure correspondant à l'inventaire de chaque module. Elle contient une variable \textit{etat} pour déterminer si l'objet est accessible ou non, une variable \textit{contenu} pour sa nature et un pointeur sur une structure de même type qu'\textit{inventaire}.
+    
+        \item $t_entity$ est également une structure possédant cinq variables : \textit{id} pour l'identifiant d'une entité, \textit{hp} pour ses points de vie associés, \textit{x} pour sa coordonnée verticale, \textit{y} pour sa coordonnée horizontale et \textit{orientation} pour définir son sens de direction. $t_inventaire$ représente l'inventaire.
+    
+        \item $t_salle$ représente la salle comportant le labyrinthe. Cette structure reprend les deux structures de type $t_inventaire$ et \textit{entity} ci-dessus qui sont liées respectivement à \textit{objets} et \textit{entite} ainsi que les variables \textit{etat} pour déterminer si la case possède des murs ou non, quatre directions \textit{haut}, \textit{bas}, \textit{gauche} et \textit{droite} pour les directions que l'entité peut utiliser pour se déplacer à l'intérieur du labyrinthe.
+      
+        \item les variables de type structure \textit{labyrinthe[N][N]}, \textit{joueur} et \textit{monstre} sont des variables globales représentant les modules pour le jeu.
+      \end{itemize}
+
+    \section{Génération du labyrinthe}
+Dans un second temps, nous allons exposer la manière dont nous avons réalisé la gestion du labyrinthe.
+
+Tout d'abord, nous allons présenter les différentes étapes de conception :
+	\begin{enumerate}
+	  \item Voici comment nous avons procédé au départ.
+		\begin{figure}[htbp]
+			\center
+			\includegraphics[height=7cm]{../IMG/Laby3.png}
+		\end{figure}
+	  \item	Puis, cela évolue !
+		\begin{figure}[htbp]
+			\center
+			\includegraphics[height=5cm]{../IMG/Laby4.png}
+		\end{figure}
+    \end{enumerate}
+
+  \chapter{Codage du jeu}
+  Dans cette partie, nous allons expliciter les fonctions utiles à la programmation du jeu qui dépendent des modules, représentés dans le diagramme suivant :
+    \begin{figure}[htbp]
+      \center
+      \includegraphics[height=11cm]{../IMG/diagramme.png}
+      \caption{Diagramme de représentation des modules.}
+    \end{figure}
+  \newpage
+  	\textbf{Joueur}
+  		\begin{itemize}
+    		\item 
+		\begin{lstlisting}[language=c] 
+void Joueur_deplacer(){
+      	//Copier-coller code}
+         \end{lstlisting}
+          
+    		\item \begin{lstlisting}[language=c]
+void Joueur_agir(){ 
+      	//Copier-coller code}
+        \end{lstlisting}
+  		\end{itemize}
+  
+    \textbf{Monstre}
+   		\begin{itemize}
+    		\item \begin{lstlisting}[language=c] 
+void Monstre_deplacer(){
+    	 //Copier-coller code}
+         		  \end{lstlisting}
+          
+   		 	\item \begin{lstlisting}[language=c] 
+void Monstre_agir(){
+       	//Copier-coller code}
+        	   	  \end{lstlisting}
+  		\end{itemize}
+
+   \textbf{Labyrinthe}
+    	\begin{itemize}
+      		\item \begin{lstlisting}[language=c] 
+void Labyrinthe_examiner(){
+      			  //Copier-coller code}
+            	  \end{lstlisting}
+          
+      		\item \begin{lstlisting}[language=c] 
+void Labyrinthe_saller(){
+        //Copier-coller code}
+            	  \end{lstlisting}
+  		\end{itemize}
+
+  \chapter{Outils de développement et de réalisation du projet}
+  \section{Gestion des fichiers - Github}
+  Afin de collaborer et de partager nos fichiers, nous avons utilisé le dépôt distant Github. L'adresse url où est situé ce dépôt distant est : \url{https://github.com/BastienMor/Labyrinthe_SPI}.
+  
+  Sur Github, nous avons tout d'abord créé trois fichiers analogue aux modules. Au fur et à mesure des mises à jour, nous avons établi des dossiers pour les divers types de fichiers. Ainsi, lorsque l'on a commencé à relier les différents modules entre eux, nous avons constitué des branches (comme \textit{testb}) afin de voir comment le regroupement entre deux modules puis trois pouvait être opérationnel.
+  \section{Makefile et son utilisation}
+  	Etant donné que la programmation du jeu contient énormément de lignes de code, il est nécessaire de séparer les différentes fonctions utiles en fonction de chaque module. Pour ce faire, il est pratique d'utiliser Makefile. Sur le terminal, la commande à taper est \textit{make}.
+	Cet outil nous permet tout d'abord de créer des liens entre chaque fichier des différents modules. Il nous permet ensuite de compiler l'ensemble des modules afin de faire fonctionner le programme correctement.
+  	Nous nous sommes heurtés à quelques problèmes lors de l'exécution du makefile, comme compiler les fichiers contenant des libraires accédant à d'autres fichiers de fonctions. Néanmoins, nous avons réussi à régler ce problème.
+  
+ \section{Documentation Doxygen}
+ 	Dans le but de générer de la documentation sur les structures de données employées ainsi que les fonctions des modules, il est aisé d'utiliser Doxygen. Cet outil de documentation technique est concu à partir d'un fichier Doxy, contenant un ensemble de données à remplir pour plus de facilité.
+  
+  \chapter{Résultats}
+  Cette partie constitue les résultats que nous a donné le jeu lors de sa programmation.
+    \section{Implémentations}
+    Ici les implémentations.
+    \section{Fonctions qui tournent}
+    Fonctions que le programme peut effectuer
+    \section{Ajout de compléments}
+    Si on a le temps, et si c'est réussi ou non, montrer tous les extras.
+  \chapter{Conclusion}
+  En prenant du recul, nous pouvons dire que ce projet nous a permis de créer un jeu avec tous les outils mis à disposition.
+
+  Problèmes rencontrés.
+
+  Améliorations.
+
+\end{document}

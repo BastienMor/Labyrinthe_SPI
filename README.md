@@ -3,7 +3,7 @@
 
 ##Règles du jeu
 Le jeu se déroule comme suit :  
-⇢ Le joueur se déplace dans un labyrinthe généré aléatoirement. Le labyrinthe évolue en fonction de la difficulté. Les statistiques du joueur peuvent changer au cours du jeu. Pour vivre, le joueur doit récupérer des objets disposés au sol et vaincre des monstres qui sont présents dans le labyrinthe.
+⇢ Le joueur se déplace dans un labyrinthe généré aléatoirement. Les statistiques du joueur peuvent changer au cours du jeu. Pour vivre, le joueur doit récupérer des objets disposés au sol et vaincre des monstres qui sont présents dans le labyrinthe.
 
 ##Programmation du jeu
 ###Se donner une idée du main - La boucle principale

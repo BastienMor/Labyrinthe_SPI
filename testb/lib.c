@@ -7,7 +7,7 @@ typedef struct {int etat; int contenu[20];}t_inventaire;
 
 typedef struct {int id; int hp; int action; t_inventaire inventaire; int orientation;}entity;
 
-typedef struct {int etat; int haut;int bas;int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
+typedef struct {int etat; int isvisit; int haut; int bas; int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
 
 t_salle labyrinthe[N][N];
 
@@ -35,7 +35,7 @@ void joueurpos(int * x, int * y)
 }
 
 
-void labyrinthe_afficher()
+void labyrinthe_afficher(int carte)
 {
 	int i;
 	int j;
@@ -52,16 +52,23 @@ void labyrinthe_afficher()
 		printf("║");
 		for(j=0; j<N; j++)
 		{
-			printf("╔");
-			if(labyrinthe[i][j].haut == 1)
+			if(labyrinthe[i][j].isvisit == 1 || labyrinthe[i][j].isvisit == carte)
 			{
-				printf("═");
+				printf("╔");
+				if(labyrinthe[i][j].haut == 1)
+				{
+					printf("═");
+				}
+				else
+				{
+					printf(" ");
+				}
+				printf("╗");
 			}
 			else
 			{
-				printf(" ");
+				printf("   ");
 			}
-			printf("╗");
 		}
 		printf("║\n");
 	
@@ -71,35 +78,42 @@ void labyrinthe_afficher()
 		printf("║");
 		for(j=0; j<N; j++)
 		{
-			if(labyrinthe[i][j].gauche == 1)
+			if(labyrinthe[i][j].isvisit == 1 || labyrinthe[i][j].isvisit == carte)
 			{
-				printf("║");
-			}
-			else
-			{
-				printf(" ");
-			}
+				if(labyrinthe[i][j].gauche == 1)
+				{
+					printf("║");
+				}
+				else
+				{
+					printf(" ");
+				}
 		
-			if(labyrinthe[i][j].etat == 1)
-			{
-				printf("■");
-			}
-			else if (labyrinthe[i][j].entite.id == id_character)
-			{
-				printf("□");
-			}
-			else
-			{
-				printf(" ");
-			}
+				if(labyrinthe[i][j].etat == 1)
+				{
+					printf("■");
+				}
+				else if (labyrinthe[i][j].entite.id == id_character)
+				{
+					printf("□");
+				}
+				else
+				{
+					printf(" ");
+				}
 		
-			if(labyrinthe[i][j].droite == 1)
-			{
-				printf("║");
+				if(labyrinthe[i][j].droite == 1)
+				{
+					printf("║");
+				}
+				else
+				{
+					printf(" ");
+				}
 			}
 			else
 			{
-				printf(" ");
+				printf("   ");
 			}
 		}
 		printf("║\n║");
@@ -108,16 +122,23 @@ void labyrinthe_afficher()
 	
 		for(j=0; j<N; j++)
 		{
-			printf("╚");
-			if(labyrinthe[i][j].bas == 1)
+			if(labyrinthe[i][j].isvisit == 1 || labyrinthe[i][j].isvisit == carte)
 			{
-				printf("═");
+				printf("╚");
+				if(labyrinthe[i][j].bas == 1)
+				{
+					printf("═");
+				}
+				else
+				{
+					printf(" ");
+				}
+				printf("╝");
 			}
 			else
 			{
-				printf(" ");
+				printf("   ");
 			}
-			printf("╝");
 		}
 		printf("║\n");
 	}
@@ -136,281 +157,290 @@ void labyrinthe_disp()
 	int x, y, i, j, a;
 	joueurpos(&x, &y);
 	
-	printf("\n\n╔══════════════════════════════════════╗\n");//14
+	printf("\n\n\n╔══════════════════════════════════════════════════════════╗\n");//14
 	int orientation = labyrinthe[x][y].entite.orientation;
 	
 	if (orientation == 1)
 	{
-		for(a=0; a<8; a++)
+		for(a=0; a<10; a++)
 		{
 			if (labyrinthe[x][y].haut == 0)
 			{
 				if(labyrinthe[x-1][y].gauche == 1)
 				{
-					printf("║ ■■■■■║");
+					printf("║ ■■■■■■■■■║");
 				}
 				else
 				{
-					printf("║ _____║");
+					printf("║ _________║");
 				}
 			
 				if (labyrinthe[x-1][y].haut == 0)
 				{
 					if (labyrinthe[x-2][y].gauche == 1)
 					{
-						printf("■■■║");
+						printf("■■■■■■■║");
 					}
 					else
 					{
-						printf("___║");
+						printf("_______║");
 					}
 			
 					if (labyrinthe[x-2][y].haut == 1)
 					{
-						printf("■■■■■■■■■■■■■■■■");
+						printf("■■■■■■■■■■■■■■■■■■■■");
 					}
 					else
 					{
-						printf("________________");
+						printf("____________________");
 					}
 			
 					if (labyrinthe[x-2][y].droite == 1)
 					{
-						printf("║■■■");
+						printf("║■■■■■■■");
 					}
 					else
 					{
-						printf("║___");
+						printf("║_______");
 					}
 				}
 				else
 				{
-					printf("■■■■■■■■■■■■■■■■■■■■■■■■");
+					printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 				}
 			
 				if (labyrinthe[x-1][y].droite == 1)
 				{
-					printf("║■■■■■ ║\n");
+					printf("║■■■■■■■■■ ║\n");
 				}
 				else
 				{
-					printf("║_____ ║\n");
+					printf("║_________ ║\n");
 				}
 			}
 			else
 			{
-				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
+				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
 			}
 		}
-		printf("╚══════════════════════════════════════╝\n\n");
+		printf("╚══════════════════════════════════════════════════════════╝\n\n");
 	}
 	else if (orientation == 2)
 	{
-		for(a=0; a<8; a++)
+		for(a=0; a<10; a++)
 		{
 			if (labyrinthe[x][y].droite == 0)
 			{
 				if(labyrinthe[x][y+1].haut == 1)
 				{
-					printf("║ ■■■■■║");
+					printf("║ ■■■■■■■■■║");
 				}
 				else
 				{
-					printf("║ _____║");
+					printf("║ _________║");
 				}
 			
 				if (labyrinthe[x][y+1].droite == 0)
 				{
-					if (labyrinthe[x][y+1].haut == 1)
+					if (labyrinthe[x][y+2].haut == 1)
 					{
-						printf("■■■║");
+						printf("■■■■■■■║");
 					}
 					else
 					{
-						printf("___║");
+						printf("_______║");
 					}
 			
 					if (labyrinthe[x][y+2].droite == 1)
 					{
-						printf("■■■■■■■■■■■■■■■■");
+						printf("■■■■■■■■■■■■■■■■■■■■");
 					}
 					else
 					{
-						printf("________________");
+						printf("____________________");
 					}
 			
 					if (labyrinthe[x][y+2].bas == 1)
 					{
-						printf("║■■■");
+						printf("║■■■■■■■");
 					}
 					else
 					{
-						printf("║___");
+						printf("║_______");
 					}
 				}
 				else
 				{
-					printf("■■■■■■■■■■■■■■■■■■■■■■■■");
+					printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 				}
 			
 				if (labyrinthe[x][y+1].bas == 1)
 				{
-					printf("║■■■■■ ║\n");
+					printf("║■■■■■■■■■ ║\n");
 				}
 				else
 				{
-					printf("║_____ ║\n");
+					printf("║_________ ║\n");
 				}
 			}
 			else
 			{
-				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
+				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
 			}
 		}
-		printf("╚══════════════════════════════════════╝\n\n");
+		printf("╚══════════════════════════════════════════════════════════╝\n\n");
 	}
 	else if (orientation == 3)
 	{
-		for(a=0; a<8; a++)
+		for(a=0; a<10; a++)
 		{
 			if (labyrinthe[x][y].bas == 0)
 			{
 				if(labyrinthe[x+1][y].droite == 1)
 				{
-					printf("║ ■■■■■║");
+					printf("║ ■■■■■■■■■║");
 				}
 				else
 				{
-					printf("║ _____║");
+					printf("║ _________║");
 				}
 			
 				if (labyrinthe[x+1][y].bas == 0)
 				{
 					if (labyrinthe[x+2][y].droite == 1)
 					{
-						printf("■■■║");
+						printf("■■■■■■■║");
 					}
 					else
 					{
-						printf("___║");
+						printf("_______║");
 					}
 			
 					if (labyrinthe[x+2][y].bas == 1)
 					{
-						printf("■■■■■■■■■■■■■■■■");
+						printf("■■■■■■■■■■■■■■■■■■■■");
 					}
 					else
 					{
-						printf("________________");
+						printf("____________________");
 					}
 			
 					if (labyrinthe[x+2][y].gauche == 1)
 					{
-						printf("║■■■");
+						printf("║■■■■■■■");
 					}
 					else
 					{
-						printf("║___");
+						printf("║_______");
 					}
 				}
 				else
 				{
-					printf("■■■■■■■■■■■■■■■■■■■■■■■■");
+					printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 				}
 			
 				if (labyrinthe[x+1][y].gauche == 1)
 				{
-					printf("║■■■■■ ║\n");
+					printf("║■■■■■■■■■ ║\n");
 				}
 				else
 				{
-					printf("║_____ ║\n");
+					printf("║_________ ║\n");
 				}
 			}
 			else
 			{
-				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
+				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
 			}
 		}
-		printf("╚══════════════════════════════════════╝\n\n");
+		printf("╚══════════════════════════════════════════════════════════╝\n\n");
 	}
 	else if (orientation == 4)
 	{
-		for(a=0; a<8; a++)
+		for(a=0; a<10; a++)
 		{
 			if (labyrinthe[x][y].gauche == 0)
 			{
 				if(labyrinthe[x][y-1].bas == 1)
 				{
-					printf("║ ■■■■■║");
+					printf("║ ■■■■■■■■■║");
 				}
 				else
 				{
-					printf("║ _____║");
+					printf("║ _________║");
 				}
 			
 				if (labyrinthe[x][y-1].gauche == 0)
 				{
 					if (labyrinthe[x][y-2].bas == 1)
 					{
-						printf("■■■║");
+						printf("■■■■■■■║");
 					}
 					else
 					{
-						printf("___║");
+						printf("_______║");
 					}
 			
 					if (labyrinthe[x][y-2].gauche == 1)
 					{
-						printf("■■■■■■■■■■■■■■■■");
+						printf("■■■■■■■■■■■■■■■■■■■■");
 					}
 					else
 					{
-						printf("________________");
+						printf("____________________");
 					}
 			
 					if (labyrinthe[x][y-2].haut == 1)
 					{
-						printf("║■■■");
+						printf("║■■■■■■■");
 					}
 					else
 					{
-						printf("║___");
+						printf("║_______");
 					}
 				}
 				else
 				{
-					printf("■■■■■■■■■■■■■■■■■■■■■■■■");
+					printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 				}
 			
 				if (labyrinthe[x][y-1].haut == 1)
 				{
-					printf("║■■■■■ ║\n");
+					printf("║■■■■■■■■■ ║\n");
 				}
 				else
 				{
-					printf("║_____ ║\n");
+					printf("║_________ ║\n");
 				}
 			}
 			else
 			{
-				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
+				printf("║ ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ║\n");
 			}
 		}
-		printf("╚══════════════════════════════════════╝\n\n");
+		printf("╚══════════════════════════════════════════════════════════╝\n\n");
 	}
 }
 
 
 
-void hp_disp()
+void stat_disp(int action)
 {
 	int i;
 	int hp = joueur.hp;
 	int max = 400;
+	int maction = joueur.action;
+	int orientation = joueur.orientation;
 	hp = (100*hp/max);
 	
-	printf("PA:%i/%i═0", );
+	if (action >= 10)
+	{
+		printf("═PA:%i/%i══╣HP", action, maction);
+	}
+	else
+	{
+		printf("═PA:0%i/%i══╣HP", action, maction);
+	}
 	
 	for (i=0; i<10; i++)
 	{
@@ -429,6 +459,26 @@ void hp_disp()
 			printf("░");
 		}
 	}
+	
+	printf("╠══");
+	
+	if (orientation == 1)
+	{
+		printf("N");
+	}
+	else if (orientation == 2)
+	{
+		printf("E");
+	}
+	else if (orientation == 3)
+	{
+		printf("S");
+	}
+	else if (orientation == 4)
+	{
+		printf("O");
+	}
+	printf("═╗\n");
 }
 
 
@@ -478,6 +528,8 @@ void deplacement(int direction)
 		labyrinthe[x][y-1].entite = labyrinthe[x][y].entite;
 	}
 	labyrinthe[x][y].entite.id = 0;
+	joueurpos(&x, &y);
+	labyrinthe[x][y].isvisit = 1;
 }
 
 
@@ -534,19 +586,18 @@ int Joueur_deplacer(int action){
 	
 	do{
 		labyrinthe_disp();
-		printf("╔═Déplacement(s)═disponible(s)══PA:%i/8═");
-		hp_disp();
-		printf("═%i═══\n", action, devant);
+		printf("╔═Déplacement(s)═disponible(s)══");
+		stat_disp(action);
 		if(nord != 1)
-			printf("║ z - Avancer                                     ║\n");
+			printf("║ z - Avancer                                               ║\n");
 		if(ouest != 1)
-			printf("║ q - Strafé à gauche                             ║\n");
+			printf("║ q - Strafé à gauche                                       ║\n");
 		if(sud != 1)
-			printf("║ s - Reculé                                      ║\n");
+			printf("║ s - Reculé                                                ║\n");
 		if(est != 1)
-			printf("║ d - Strafé à droite                             ║\n");
-		printf("║ c - Retour                                         ║\n");
-		printf("╚════════════════════════════════════════════════════╝\n\n");
+			printf("║ d - Strafé à droite                                       ║\n");
+		printf("║ c - Retour                                                ║\n");
+		printf("╚═══════════════════════════════════════════════════════════╝\n\n");
 		
 		scanf("%c", &bouger);
 		switch(bouger){
@@ -567,7 +618,7 @@ int Joueur_deplacer(int action){
 
 
 
-void tourne (int t, int x, int y)
+int tourne (int t, int x, int y)
 {
 	labyrinthe[x][y].entite.orientation += t;
 	
@@ -579,6 +630,7 @@ void tourne (int t, int x, int y)
 	{
 		labyrinthe[x][y].entite.orientation += 4;
 	}
+	return labyrinthe[x][y].entite.orientation;
 }
 
 
@@ -592,18 +644,19 @@ void Joueur_tourne(int action)
 
 	do{
 		labyrinthe_disp();
-		printf("╔══Sens═ou═touné═?══════════════PA:%i/8═══%i/mx═══\n", action, orientation);
-		printf("║ q - Tourner à gauche                       ║\n");
-		printf("║ s - Se retourner                           ║\n");
-		printf("║ d - Tourner à droite                       ║\n");
-		printf("║ c - Retour                                 ║\n");
-		printf("╚════════════════════════════════════════════╝\n\n");
+		printf("╔══Sens═ou═touné═?════════");
+		stat_disp(action);
+		printf("║ q - Tourner à gauche                                ║\n");
+		printf("║ s - Se retourner                                    ║\n");
+		printf("║ d - Tourner à droite                                ║\n");
+		printf("║ c - Retour                                          ║\n");
+		printf("╚═════════════════════════════════════════════════════╝\n\n");
 		
 		scanf("%c", &tour);
 		switch(tour){
-			case 'q': tourne(-1, x, y); fin_action=1; break;
-			case 'd': tourne(1, x, y); fin_action=1; break;
-			case 's': tourne(2, x, y); fin_action=1; break;
+			case 'q': joueur.orientation = tourne(-1, x, y); fin_action=1; break;
+			case 'd': joueur.orientation = tourne(1, x, y); fin_action=1; break;
+			case 's': joueur.orientation = tourne(2, x, y); fin_action=1; break;
 			case 'c': fin_action=1; break;
 			default: printf("Entrée non valide\n");
 		}
@@ -616,24 +669,29 @@ void Joueur_agir() { // Permet de faire agir le joueur pendant le tour
 	int tour=0;
 	
 	//joueur_stats();
-	int action = 100;//joueur.action;
+	int action = joueur.action;
+	int x, y;
+	joueurpos(&x, &y);
 	int hp = joueur.hp;
 	int orientation = joueur.orientation;
 	int agir = 0;
 	int fin_action = 0;
 	char c;
 	
+	labyrinthe[x][y].isvisit = 1;
+	
 	do{
 		labyrinthe_disp();
-		printf("╔════Menu═D'action══PA:%i/8════╣HP", action);
-		hp_disp();
-		printf("╠═════╗\n");
+		printf("╔════Menu═D'action═════════════");
+		stat_disp(action);
 		printf("║ 1 - Déplacement                                          ║\n");
 		printf("║ 2 - Check salle                                          ║\n");
 		printf("║ 3 - Se tourné                                            ║\n");
 		printf("║ 4 - Combattre                                            ║\n");
 		printf("║ 5 - Carte                                                ║\n");
 		printf("║ 6 - Fin de tour                                          ║\n");
+		if (action == joueur.action)
+			printf("║ 7 - Menu principal                                       ║\n");
 		printf("╚══════════════════════════════════════════════════════════╝\n\n");
 		scanf("%c", &c);
 		switch(c){
@@ -641,11 +699,11 @@ void Joueur_agir() { // Permet de faire agir le joueur pendant le tour
 			case '2': break;
 			case '3': viderBuffer(); agir = 0; Joueur_tourne(action); break;
 			case '4': break;
-			case '5': viderBuffer(); agir = 0; labyrinthe_afficher(); break;
+			case '5': viderBuffer(); agir = 0; labyrinthe_afficher(0); break;
 			case '6': fin_action = 1;break;
+			case '7': if (action == joueur.action){/*Menu();*/}else{printf("NON !");} break;
 			default: printf("Action non valide !\n");
 		}
 		action -= agir;
-	}while (action > 0 && !fin_action);  
+	}while (action > 0 && !fin_action);
 }
-

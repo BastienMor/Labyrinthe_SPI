@@ -1,0 +1,173 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{array,multirow}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\lstset{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  tabsize=4,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange}
+}
+
+\title{\textbf{Rapport de projet}\linebreak
+\\
+Vie dans un labyrinthe}
+\author{BODINEAU Bastien, DURAN Alizée et NGATCHOU Junior}
+\date{Novembre 2015 - Janvier 2016}
+
+\begin{document}
+
+  \maketitle
+  \tableofcontents
+
+  \chapter{Présentation du sujet}
+  Dans cette première partie, nous allons expliquer le sujet ainsi que les modifications effectuées.
+    \section{Sujet du projet}
+    Pour l'UE Conduite de projet, il nous faut réaliser un jeu sur terminal avec possibilité de le faire avec une interface graphique (SDL). Parmi plusieurs sujets, nous avons choisi "Vie dans un labyrinthe". 
+
+    Le but de ce jeu est de faire évoluer des insectes à l'intérieur d'un labyrinthe, en s'inspirant du jeu de la vie, un jeu que l'on a déjà réalisé au cours de l'UE Algorithme et Programmation. Nous devons également informer l'utilisateur sur les statistiques de la population présente dans le labyrinthe, générer des déplacements semi-aléatoires et nourrir ces insectes.
+    \section{Modifications apportées au sujet}
+    Dans ce sujet, nous avons apporté des modifications afin de mieux étudier le sujet du jeu à réaliser. En premier lieu, nous avons préféré mettre des entités comme un joueur et un/plusieurs monstre(s). Les insectes peuvent tout à fait être des monstres que le joueur doit combattre.
+
+    Étant un point clé du jeu, une part du rapport est attribuée à la manière dont la génération du labyrinthe a été construite.
+  \chapter{Organisation du travail}
+  Ici, nous allons détailler la répartition du travail entre les étudiants en affectant chacun un module différent.
+    \section{Répartition des tâches}
+    Afin de concevoir correctement le programme du jeu, nous avons réparti les tâches en fonction de modules. En effet, trois modules principaux sont importants : le module du labyrinthe, le module du joueur et le module du monstre. Voici la répartition des tâches en fonction des étudiants :
+      \begin{table}[htbp]
+        \center
+        \caption{Répartition des tâches.}
+          \begin{tabular}{|c|c c c|}
+            \hline 
+                                   &Alizée       &Junior       &Bastien      \\
+            \hline
+                Module Joueur      &$\times$     &             &             \\
+                Module Monstre     &             &$\times$     &             \\
+                Module Labyrinthe  &             &             &$\times$     \\
+                Module Menus	   &$\times$	 &			   &$\times$	 \\
+                Makefile           &             &		       &$\times$     \\
+                Documentation      &$\times$     &             &             \\
+                
+            \hline
+          \end{tabular}
+      \end{table}
+
+  \chapter{Analyse du problème}
+  Dans cette partie, nous allons indiquer les structures de données que nous avons établies ainsi que la génération du labyrinthe, qui est un élément important du projet.
+    \section{Structures de données}
+    Dans un premier temps, nous donnons les différentes structures de données que chaque module possède :
+\begin{lstlisting}[language=c]
+  typedef struct inventaire{int etat; int contenu[10];}t_inventaire;
+  typedef struct {int id; int hp; int action; t_inventaire inventaire; int orientation;}entity;
+  typedef struct {int etat; int isivisit; int haut; int bas; int gauche; int droite; t_inventaire objets; entity entite;}t_salle;
+  t_salle labyrinthe[N][N];
+  entity joueur;
+  entity monstre;
+\end{lstlisting}
+
+    Explications :
+
+      \begin{itemize}
+        \item t\_inventaire est la structure correspondant à l'inventaire de chaque module. Elle contient une variable \textit{etat} pour déterminer si l'objet est accessible ou non et une variable \textit{contenu} pour sa nature.
+    
+        \item t\_entity est également une structure possédant quatre variables : \textit{id} pour l'identifiant d'une entité, \textit{hp} pour ses points de vie associés, \textit{action} pour ses points d'actions et \textit{orientation} pour définir son sens de direction. t\_inventaire représente l'inventaire.
+    
+        \item t\_salle représente la salle comportant le labyrinthe. Cette structure reprend les deux structures de type t\_inventaire et \textit{entity} ci-dessus qui sont liées respectivement à \textit{objets} et \textit{entite} ainsi que les variables \textit{etat} pour déterminer si la case possède des murs ou non, quatre directions \textit{haut}, \textit{bas}, \textit{gauche} et \textit{droite} pour les directions que l'entité peut utiliser pour se déplacer à l'intérieur du labyrinthe.
+      
+        \item les variables de type structure \textit{labyrinthe[N][N]}, \textit{joueur} et \textit{monstre} sont des variables globales représentant les modules pour le jeu.
+      \end{itemize}
+
+    \section{Génération du labyrinthe}
+Dans un second temps, nous allons exposer la manière dont nous avons réalisé la gestion du labyrinthe.
+
+Pour générer le labyrinthe, nous avons réutilisé un algorithme trouvé sur le net. Il consiste à placer une première case vide aléatoirement sur la grille puis de placer des 'ponts'. Chaque pont représente en fait la liaison entre 2 cases. Pour savoir ou créer ces ponts, on prend une salle au hasard, on regarde l'une de ces voisines. Si celle-ci est creuse (fait partie du labyrinthe) alors on peut créer le 'pont' entre les deux en retirant les murs de l'initialisation et en 'creusant' le mur. Pour créer des couloirs et un labyrinthe parfait, on alterne entre la création d'un pont vertical et horizontal. Aussi, la génération de pont doit être faite N*N-1 fois, c'est-à-dire 1 par case du labyrinthe -1 pour celle générée aléatoirement au début. Ainsi, pour proposer un but à notre jeu, on choisit une case au hasard de la première colonne du tableau du labyrinthe pour y placer le joueur en début de partie ainsi qu'une case sur la Nième colonne pour y mettre l'arrivée.
+
+  \chapter{Codage du jeu}
+  Dans cette partie, nous allons expliciter les fonctions utiles à la programmation du jeu qui dépendent des modules, représentés dans le diagramme suivant :
+    \begin{figure}[htbp]
+      \center
+      \includegraphics[height=11cm]{diagramme.png}
+      \caption{Diagramme de représentation des modules avec améliorations (en bleu).}
+    \end{figure}
+  \newpage
+  	\textbf{Joueur}
+  		\begin{itemize}
+    		\item 
+    Dans le jeu, le joueur se déplace à l'intérieur du labyrinthe. Pour qu'il puisse se déplacer en fonction des murs ou des chemins disponibles dans le labyrinthe, la fonction \textit{Joueur\_deplacer} permet ses déplacements. 
+		\begin{lstlisting}[language=c] 
+void Joueur_deplacer()
+    Recupere la position (x,y) du joueur;
+    Affecte a une variable l`orientation de l`entite du labyrinthe;
+    Cette variable est comprise entre 1 et 4, pour chaque orientation possible;
+    Selon l`orientation et l`indication d`un labyrinthe ou non, affiche les disponibilites pour se deplacer;
+    Affiche un message d`erreur si ce que l`on fait n`est pas demande
+         \end{lstlisting}
+          
+    		\item Pendant le tour, le joueur, en fonction des choix de l'utilisateur, peut effectuer différentes actions. La fonction \textit{Joueur\_agir} donne sur un menu disposant de plusieurs possibilités de jouer tout en utilisant des points d'actions (PA). Dès que les points d'actions sont terminés, le tour se termine.
+    	\begin{lstlisting}[language=c]
+void Joueur_agir()
+    Affiche le labyrinthe;
+    Affiche le menu disponible pour le joueur;
+    Recupere de la touche correspondant a l`action a faire;
+    En fonction de celle-ci, l`action donnee est faite;
+    Si l`action est incorrecte, affiche un message d`erreur;
+        \end{lstlisting}
+  		\end{itemize}
+
+   \textbf{Labyrinthe}
+    	\begin{itemize}
+      		\item 
+      		\begin{lstlisting}[language=c] 
+void Labyrinthe_examiner(){
+      	//Copier-coller code}
+            	  \end{lstlisting}
+          
+      		\item 
+      		\begin{lstlisting}[language=c] 
+void Labyrinthe_saller(){
+        //Copier-coller code}
+            	  \end{lstlisting}
+  		\end{itemize}
+  		
+  		    \textbf{Monstre}
+   		\begin{itemize}
+
+  \chapter{Outils de développement et de réalisation du projet}
+  \section{Gestion des fichiers - Github}
+  Afin de collaborer et de partager nos fichiers, nous avons utilisé le dépôt distant Github. L'adresse url où est situé ce dépôt distant est : \url{https://github.com/BastienMor/Labyrinthe_SPI}.
+  
+  Sur Github, nous avons tout d'abord créé trois fichiers analogue aux modules. Au fur et à mesure des mises à jour, nous avons établi des dossiers pour les divers types de fichiers. Ainsi, lorsque l'on a commencé à relier les différents modules entre eux, nous avons constitué des branches (comme \textit{testb}) afin de voir comment le regroupement entre deux modules puis trois pouvait être opérationnel.
+  \section{Makefile et son utilisation}
+  	Etant donné que la programmation du jeu contient énormément de lignes de code, il est nécessaire de séparer les différentes fonctions utiles en fonction de chaque module. Pour ce faire, il est pratique d'utiliser Makefile. Sur le terminal, la commande à taper est \textit{make}.
+	Cet outil nous permet tout d'abord de créer des liens entre chaque fichier des différents modules. Il nous permet ensuite de compiler l'ensemble des modules afin de faire fonctionner le programme correctement.
+  	Nous nous sommes heurtés à quelques problèmes lors de l'exécution du makefile, comme compiler les fichiers contenant des libraires accédant à d'autres fichiers de fonctions. Néanmoins, nous avons réussi à régler ce problème.
+  
+ \section{Documentation Doxygen}
+ 	Dans le but de générer de la documentation sur les structures de données employées ainsi que les fonctions des modules, il est aisé d'utiliser Doxygen. Cet outil de documentation technique est concu à partir d'un fichier Doxy, contenant un ensemble de données à remplir pour plus de facilité.
+  En exécutant le fichier Doxy, deux dossiers html et latex sont générés. Pour pouvoir obtenir la version disponible par un navigateur, il faut ouvrir le fichier index.html. Pour avoir la version pdf de la documentation, il faut effectuer la commande make pdf après avoir été dans le dossier latex. 
+  \chapter{Résultats}
+  Cette partie constitue les résultats que nous a donné le jeu lors de sa programmation.
+
+	Après avoir l'ensemble de
+
+  \chapter{Conclusion}
+  En prenant du recul, nous pouvons dire que ce projet nous a permis de créer un jeu avec tous les outils mis à disposition.
+
+\end{document}

@@ -1,12 +1,12 @@
-SRC=../src/
-INCLUDE=../include/
-OUTPUT=../bin/
+SRC=src/
+INCLUDE=include/
+OUTPUT=bin/
 OPT= -g -Wall
 
-all: exe 
+all: laby 
 
-exe: ${SRC}*.c ${INCLUDE}*.h
-	gcc ${SRC}*.c -o ${OUTPUT}exe ${OPT}
+laby: ${SRC}%.c ${INCLUDE}%.h
+	gcc ${SRC}%.c -o ${OUTPUT}laby ${OPT}
 
 clean:
    rm *.o

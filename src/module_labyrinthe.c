@@ -123,6 +123,7 @@ void init_laby()
 			labyrinthe[i][j].haut = 1;
 			labyrinthe[i][j].bas = 1;
 			labyrinthe[i][j].entite.id = 0;
+			labyrinthe[i][j].objet.etat = 0;
 		}
 	}
 }
@@ -205,20 +206,15 @@ void joueurpos(int * x, int * y)
 }
 
 //trouver les x et y du flag d'arrivé
-void winpos(int * x, int * y)
+void winpos(int * x)
 {
-	int i, j;
+	int i;
 	
 	for (i=0; i<N; i++)
 	{
-		for(j=0; j<N; j++)
+		if (labyrinthe[i][11].objet.etat == 10)
 		{
-			if (labyrinthe[i][j].entite.id == 10)
-			{
-				*x = i;
-				*y = j;
-				printf("%i, %i", i, j);
-			}
+			*x = i;
 		}
 	}
 }
@@ -288,7 +284,7 @@ void labyrinthe_afficher(int carte)
 				{
 					printf("\033[0;43;32m■\033[0;43;37m");
 				}
-				else if (labyrinthe[i][j].entite.id == 10)
+				else if (labyrinthe[i][j].objet.etat == 10)
 				{
 					printf("\033[0;43;34mX\033[0;43;37m");
 				}

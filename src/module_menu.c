@@ -56,7 +56,7 @@ void initialisation()
 	init_laby();
 	Laby_generator();
 	init_player();
-	labyrinthe[a][N-1].entite.id = 10;
+	labyrinthe[a][N-1].objet.etat = 10;
 	labyrinthe[a][N-1].isvisit = 1;
 }
 

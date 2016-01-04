@@ -1,23 +1,10 @@
-#include "constantes.h"
+#include "../include/constante.h"
+#include "../include/module_joueur.h"
+#include "../include/module_menu.h"
 
-/**
-\file
-\brief Module du labyrinthe avec ses fonctions associées
-\date Décembre 2015
-\author Alizée, Junior, Bastien
-*/
-
-
-/**
-\fn void labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
-\brief Retourne où le joueur peut se déplacer selon les murs présents à l'intérieur du labyrinthe
-\param nord Variable indiquant la direction du nord
-\param est Variable indiquant la direction de l'est
-\param sud Variable indiquant la direction du sud
-\param ouest Variable indiquant la direction de l'ouest
-*/
+//retourne ou l'on peut se déplacé JOUEUR UNIQUEMENT
 void labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
-{
+{//maj ds labyrinthe[x][y] les directions valides si XY est la place du joueur
 	int x, y;
 	joueurpos(&x, &y);
 	
@@ -43,14 +30,9 @@ void labyrinthe_orienter(int * nord, int * est, int * sud, int * ouest)
 		*ouest = 0;
 	}
 }
-/*
-/**
-\fn void labyrinthe_examiner(int x, int y, t_inventaire * quoi)
-\brief Renvoie les objets présents dans le labyrinthe
-\param x Variable indiquant la coordonnée verticale du labyrinthe
-\param y Variable indiquant la coordonnée horizontale du labyrinthe
-\param quoi Variable de type t_inventaire concernant l'objet
 
+//info sur une salle
+//[-1;-1] en paramettre prendra les infos sur la case du joueur.
 void labyrinthe_examiner(int x, int y, t_inventaire * quoi)
 {
 	if (x == -1 && y == -1)
@@ -63,18 +45,10 @@ void labyrinthe_examiner(int x, int y, t_inventaire * quoi)
 		*quoi = labyrinthe[x][y].objets;
 	}
 }
-*/
 
-/**
-\fn void labyrinthe_presencer(int x, int y, entity * nord, entity * est, entity * sud, entity * ouest)
-\brief Donne les informations sur les entités présentes autour d'une entité en question
-\param x Variable indiquant la coordonnée verticale 
-\param y Variable indiquant la coordonnée horizontale
-\param nord Variable de type entity reprenant l'orientation de l'entité présente
-\param est Variable de type entity reprenant l'orientation de l'entité présente
-\param sud Variable de type entity reprenant l'orientation de l'entité présente
-\param est Variable de type entity reprenant l'orientation de l'entité présente
-/*
+
+//info sur les entité alentours d'une entité
+//[-1;-1] prendra le x et y du joueur.
 void labyrinthe_presencer(int x, int y, entity * nord, entity * est, entity * sud, entity * ouest)
 {
 	if (x == -1 && y == -1)
@@ -93,14 +67,10 @@ void labyrinthe_presencer(int x, int y, entity * nord, entity * est, entity * su
 		*est = labyrinthe[x][y-1].entite;
 	}
 }
-*/
-/**
-\fn void labyrinthe_deplacer(entity qui, int orientation)
-\brief Fait déplacer une entité (orientation = [1; 2; 3; 4])
-\param qui Variable de type entity permettant de désigner l'entité voulue
-\param orientation Variable qui permet de situer l'orientation
+
 
 /*
+//deplace une entité (orientation = [1; 2; 3; 4])
 void labyrinthe_deplacer(entity qui, int orientation)
 {
 	int x = qui.x;
@@ -137,10 +107,8 @@ void labyrinthe_deplacer(entity qui, int orientation)
 }*/
 
 
-/**
-\fn void init_laby()
-\brief Permet d'initialiser le labyrinthe 
-*/
+
+
 void init_laby()
 {
 	int i, j;
@@ -160,10 +128,8 @@ void init_laby()
 }
 
 
-/**
-\fn void Laby_generator()
-\brief Permet de générer un labyrinthe aléatoirement
-*/
+
+
 void Laby_generator()
 {
 	int cycle = 1;
@@ -219,12 +185,8 @@ void Laby_generator()
 	}
 }
 
-/**
-\fn void joueurpos(int * x, int * y)
-\brief Permet de récupérer les positions x et y du joueur
-\param x Variable correspondant à la coordonnée verticale du joueur
-\param y Variable correspondant à la coordonnée horizontale du joueur
-*/
+
+//trouver les x et y du joueur
 void joueurpos(int * x, int * y)
 {
 	int i, j;
@@ -241,12 +203,8 @@ void joueurpos(int * x, int * y)
 		}
 	}
 }
-/**
-\fn void winpos(int * x, int * y)
-\brief Permet de récupérer les positions x et y de l'endroit où le joueur doit arriver pour sortir du labyrinthe
-\param x Variable correspondant à la coordonnée verticale de l'arrivée
-\param y Variable correspondant à la coordonnée horizontale de l'arrivée
-*/
+
+//trouver les x et y du flag d'arrivé
 void winpos(int * x, int * y)
 {
 	int i, j;
@@ -266,11 +224,8 @@ void winpos(int * x, int * y)
 }
 
 
-/**
-\fn void labyrinthe_afficher(int carte)
-\brief Affiche le labyrinthe entier sous la forme d'une carte. La variable carte est un paramètre de débogage. Si carte vaut 0, il affiche le labyrinthe en entier. Si carte vaut 1 alors le labyrinthe affiche seulement les endroits où le joueur s'est déplacé.
-\param carte Variable de débogage
-*/
+
+
 void labyrinthe_afficher(int carte)
 {
 	int i;
@@ -391,10 +346,7 @@ void labyrinthe_afficher(int carte)
 	printf("╝\033[0;40;37m\n");
 }
 
-/**
-\fn void labyrinthe_disp()
-\brief 
-*/
+
 void labyrinthe_disp()
 {
 	int x, y, i, j, a;
@@ -664,67 +616,4 @@ void labyrinthe_disp()
 		printf("╚══════════════════════════════════════════════════════════╝\n\n");
 	}
 }
-
-
-
-void stat_disp(int action)
-{
-	int i;
-	int hp = joueur.hp;
-	int max = 400;
-	int maction = joueur.action;
-	int x, y;
-	joueurpos(&x, &y);
-	int orientation = labyrinthe[x][y].entite.orientation;
-	hp = (100*hp/max);
-	
-	if (action >= 10)
-	{
-		printf("═PA:%i/%i══╣HP", action, maction);
-	}
-	else
-	{
-		printf("═PA:0%i/%i══╣HP", action, maction);
-	}
-	
-	for (i=0; i<10; i++)
-	{
-		if (hp > 10)
-		{
-			hp -= 10;
-			printf("█");
-		}
-		else if (hp < 10 && hp > 0)
-		{
-			hp = 0;
-			printf("▓");
-		}
-		else
-		{
-			printf("░");
-		}
-	}
-	
-	printf("╠══");
-	
-	if (orientation == 1)
-	{
-		printf("N");
-	}
-	else if (orientation == 2)
-	{
-		printf("E");
-	}
-	else if (orientation == 3)
-	{
-		printf("S");
-	}
-	else if (orientation == 4)
-	{
-		printf("O");
-	}
-	printf("═╗\n");
-}
-
-
 

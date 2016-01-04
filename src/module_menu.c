@@ -2,7 +2,21 @@
 #include "../include/module_joueur.h"
 #include "../include/module_labyrinthe.h"
 
+/**
+\file module_menu.c
+\brief Module comportant les fonctions d'affichage pour l'ensemble du jeu
+\author Bastien, Alizée
+\date Décembre 2015
+\version 1.0
+*/
 
+
+
+/**
+\fn void print_title(int isdead)
+\brief Permet d'afficher différents titres pour le démarrage du jeu ainsi qu'un titre de fin de partie lors de la défaite du joueur
+\param isdead Permet de déterminer si le jeu est terminé ou non
+*/
 void print_title(int isdead)
 {
 	int a;
@@ -25,7 +39,10 @@ void print_title(int isdead)
 	}	
 }
 
-
+/**
+\fn void Jeu_sauver()
+\brief Permet de sauvegarder une partie dans un fichier
+*/
 void Jeu_sauver(){
 	FILE * save;
 	save = fopen("p1.sav", "w");
@@ -37,6 +54,11 @@ void Jeu_sauver(){
 	printf("              ╚═══════════════════════════════════════════════╝\n\n");
 }
 
+
+/**
+\fn void Jeu_charger()
+\brief Permet de charger une partie depuis un fichier
+*/
 void Jeu_charger(){
 	FILE * load;
 	load = fopen("p1.sav", "r");
@@ -49,7 +71,10 @@ void Jeu_charger(){
 }
 
 
-
+/**
+\fn void initialisation()
+\brief Fonction permettant d'initialiser les différents modules
+*/
 void initialisation()
 {
 	int a = rand()%N;
@@ -61,8 +86,10 @@ void initialisation()
 }
 
 
-
-//Menu lors du démarrage du jeu et menu pause du jeu
+/**
+\fn void Menu()
+\brief Menu lors du démarrage du jeu et de la pause du jeu
+*/
 void Menu(){
 
 	int choix;

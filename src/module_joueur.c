@@ -2,9 +2,23 @@
 #include "../include/module_labyrinthe.h"
 #include "../include/module_menu.h"
 
+/**
+\file module_joueur.c
+\brief Module du joueur avec ses fonctions associées
+\author Bastien, Alizée
+\date Décembre 2015
+\version 1.0
+*/
 
-void stat_disp(int action)
-{
+
+
+
+/**
+\fn void stat_disp(int action)
+\brief Fonction servant à calculer et afficher les points de vie du joueur (barre d'hp).
+\param action Variable action dépendant du nombre d'actions que le joueur peut effectuer
+*/
+void stat_disp(int action){
 	int i;
 	int hp = joueur.hp;
 	int max = 400;
@@ -14,70 +28,54 @@ void stat_disp(int action)
 	int orientation = labyrinthe[x][y].entite.orientation;
 	hp = (100*hp/max);
 	
-	if (action >= 10)
-	{
+	if (action >= 10){
 		printf("═PA:%i/%i══╣HP", action, maction);
-	}
-	else
-	{
+	}else{
 		printf("═PA:0%i/%i══╣HP", action, maction);
 	}
 	
-	for (i=0; i<10; i++)
-	{
-		if (hp > 10)
-		{
+	for (i=0; i<10; i++){
+		if (hp > 10){
 			hp -= 10;
 			printf("█");
-		}
-		else if (hp < 10 && hp > 0)
-		{
+		}else if (hp < 10 && hp > 0){
 			hp = 0;
 			printf("▓");
-		}
-		else
-		{
+		}else{
 			printf("░");
 		}
 	}
 	
 	printf("╠══");
 	
-	if (orientation == 1)
-	{
+	if (orientation == 1){
 		printf("N");
-	}
-	else if (orientation == 2)
-	{
+	}else if (orientation == 2){
 		printf("E");
-	}
-	else if (orientation == 3)
-	{
+	}else if (orientation == 3){
 		printf("S");
-	}
-	else if (orientation == 4)
-	{
+	}else if (orientation == 4){
 		printf("O");
 	}
 	printf("═╗\n");
 }
 
-
-
-
-
-void viderBuffer()
-{
+/**
+\fn void viderBuffer()
+\brief Permet de vider le buffer à chaque action effectuée afin d'éviter une saturation de mémoire
+*/
+void viderBuffer(){
     int c = 0;
-    while (c != '\n' && c != EOF)
-    {
+    while (c != '\n' && c != EOF){
         c = getchar();
     }
 }
 
-
-void init_player()
-{
+/**
+\fn void init_player()
+\brief Permet d'initialiser le joueur avec ses différents caractéristiques
+*/
+void init_player(){
 	joueur.id = 1;
 	joueur.hp = 100;
 	joueur.action = 8;
@@ -86,26 +84,26 @@ void init_player()
 	labyrinthe[rand()%N][0].entite = joueur;
 }
 
-
+/**
+\fn void deplacement(int action)
+\brief Fonction qui permet d'affecter du joueur à l'intérieur du labyrinthe 
+\param action Variable action dépendant des points d'actions du joueur
+*/
 void deplacement(int direction)
 {
 	int x, y;
 	joueurpos(&x, &y);
 	
-	if (direction == 1)
-	{
+	if (direction == 1){
 		labyrinthe[x-1][y].entite = labyrinthe[x][y].entite;
 	}
-	else if (direction == 2)
-	{
+	else if (direction == 2){
 		labyrinthe[x][y+1].entite = labyrinthe[x][y].entite;
 	}
-	else if (direction == 3)
-	{
+	else if (direction == 3){
 		labyrinthe[x+1][y].entite = labyrinthe[x][y].entite;
 	}
-	else if (direction == 4)
-	{
+	else if (direction == 4){
 		labyrinthe[x][y-1].entite = labyrinthe[x][y].entite;
 	}
 	labyrinthe[x][y].entite.id = 0;
@@ -113,7 +111,12 @@ void deplacement(int direction)
 	labyrinthe[x][y].isvisit = 1;
 }
 
-
+/**
+\fn int Joueur_deplacer(int action)
+\brief Permet de faire déplacer le joueur à l'intérieur du labyrinthe en utilisant la fonction deplacement pour son orientation. Affichage du menu de déplacement
+\param action Variable servant de nombre de points d'action du joueur
+\return agir Variable indiquant si oui ou non le joueur s'est déplacé (afin d'enlever un point d'action)
+*/
 int Joueur_deplacer(int action){
 	int nord, sud, est, ouest;
 	int devant, droite, derriere, gauche;
@@ -124,8 +127,7 @@ int Joueur_deplacer(int action){
 	joueurpos(&x, &y);
 	
 	devant = labyrinthe[x][y].entite.orientation;
-	if (devant == 1)
-	{
+	if (devant == 1){
 		droite = 2;
 		gauche = 4;
 		derriere = 3;
@@ -133,9 +135,7 @@ int Joueur_deplacer(int action){
 		est = labyrinthe[x][y].droite;
 		sud = labyrinthe[x][y].bas;
 		ouest = labyrinthe[x][y].gauche;
-	}
-	else if (devant == 2)
-	{
+	}else if (devant == 2){
 		droite = 3;
 		gauche = 1;
 		derriere = 4;
@@ -143,9 +143,7 @@ int Joueur_deplacer(int action){
 		est = labyrinthe[x][y].bas;
 		sud = labyrinthe[x][y].gauche;
 		ouest = labyrinthe[x][y].haut;
-	}
-	else if (devant == 3)
-	{
+	}else if (devant == 3){
 		droite = 4;
 		gauche = 2;
 		derriere = 1;
@@ -153,9 +151,7 @@ int Joueur_deplacer(int action){
 		est = labyrinthe[x][y].gauche;
 		sud = labyrinthe[x][y].haut;
 		ouest = labyrinthe[x][y].droite;
-	}
-	else if (devant == 4)
-	{
+	}else if (devant == 4){
 		droite = 1;
 		gauche = 3;
 		derriere = 2;
@@ -194,29 +190,28 @@ int Joueur_deplacer(int action){
 	return agir;
 }
 
-
-
-
-
-
-int tourne (int t, int x, int y)
-{
+/**
+\fn int tourne()
+\brief Fonction qui permet de récupérer l'orientation du joueur
+\return labyrinthe[x][y].entite.orientation Nombre indiquant la direction
+*/
+int tourne(int t, int x, int y){
 	labyrinthe[x][y].entite.orientation += t;
 	
-	if (labyrinthe[x][y].entite.orientation > 4)
-	{
+	if (labyrinthe[x][y].entite.orientation > 4){
 		labyrinthe[x][y].entite.orientation -= 4;
-	}
-	else if (labyrinthe[x][y].entite.orientation < 1)
-	{
+	}else if (labyrinthe[x][y].entite.orientation < 1){
 		labyrinthe[x][y].entite.orientation += 4;
 	}
 	return labyrinthe[x][y].entite.orientation;
 }
 
-
-void Joueur_tourne(int action)
-{
+/**
+\fn void Joueur_tourne(int action)
+\brief En récupérant l'orientation du joueur, permet de faire tourner le joueur de l'orientation que l'on souhaite. Affichage d'un menu adapté
+\param action Variable indiquant le nombre d'action du joueur
+*/
+void Joueur_tourne(int action){
 	int x, y;
 	int fin_action = 0;
 	char tour;
@@ -245,8 +240,12 @@ void Joueur_tourne(int action)
 	viderBuffer();
 }
 
-
-int Joueur_agir() { // Permet de faire agir le joueur pendant le tour 
+/**
+\fn int Joueur_agir()
+\brief Permet de faire agir le joueur pendant les points d'actions disponibles par tour
+\return retour_menu Variable indiquant si oui ou non on retourne au menu principal
+*/
+int Joueur_agir(){  
 	int tour=0;
 	
 	int action = joueur.action;
@@ -289,51 +288,51 @@ int Joueur_agir() { // Permet de faire agir le joueur pendant le tour
 	return retour_menu;
 }
 
-
-int fin_partie()
-{
+/**
+\fn int fin_partie()
+\brief Fonction indiquant la fin de partie ou non
+\return Une valeur indiquant si vrai la partie terminée
+*/
+int fin_partie(){
 	int x, y;
 	joueurpos(&x, &y);
 	int i, j=11;
 	winpos(&i);
 	
 	
-	if ((x == i && y == j) || joueur.hp == 0)
-	{
+	if ((x == i && y == j) || joueur.hp == 0){
 		return 1;
-	}
-	else
-	{
+	}else{
 		return 0;
 	}
 }
 
 
-
-int play ()
-{
+/**
+\fn int play()
+\brief Fonction qui permet de faire jouer le joueur avec des conditions d'arrêt telles que la mort du joueur ou bien la fin de partie
+\return Une valeur indiquant si le jeu continue ou est terminé
+*/
+int play (){
 	int retour_menu = 0;
 	int fin = 0;
 	
-	while (!fin && retour_menu == 0)
-	{
+	while (!fin && retour_menu == 0){
 		retour_menu = Joueur_agir();
 		//Monstres agir ???
 		
 		fin = fin_partie();
 	}
 	
-	if (fin && joueur.hp != 0)
-	{
+	if (fin && joueur.hp != 0){
 		printf("\n        __     __\n        \\ \\   / /__  _   _ ___    __ ___   _____ ____\n         \\ \\ / / _ \\| | | / __|  / _` \\ \\ / / _ \\_  /\n          \\ V / (_) | |_| \\__ \\ | (_| |\\ V /  __// /\n           \\_/ \\___/ \\__,_|___/  \\__,_| \\_/_\\___/___|\n                 __ _  __ _  __ _ _ __   /_/| |\n                / _` |/ _` |/ _` | '_ \\ / _ \\ |\n               | (_| | (_| | (_| | | | |  __/_|\n                \\__, |\\__,_|\\__, |_| |_|\\___(_)\n                |___/       |___/\n\n\n");
 	}
 	
-	if (joueur.hp == 0)
-	{
+	if (joueur.hp == 0){
 		return 1;
 	}
-	else
-	{
+	
+	else{
 		return 0;
 	}
 }
